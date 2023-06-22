@@ -1,0 +1,504 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter1.tex}%
+\listoftodos
+
+
+\chapter{Introduction}\label{cha:introduction}
+
+\section{Theoretical Introduction}
+In this section, the theoretical topics that served as base for the work will be discussed. They will include themes from the much used characteristic X-rays of elements, to the relativistic Dirac equation, with \gls{QED} effects corrections and methods for solving the many-body problem.
+
+
+\subsection{Characteristic X-rays}
+
+The X-rays emitted by an element when exposed to a high energy particle beam (usually made of electrons or photons), can be used to determine what the analyzed element is. Therefore, the study of this characteristic radiation is of high importance in many scientific areas.
+
+\subsubsection{Ionization as a vacancy generator}
+
+When an atomic system is in a bound state, the electrons orbiting the nucleus will be occupying fixed quantum states, defined by their principal atomic number, $n$, angular momentum, $l$, and spin, $s$. Electrons are also fermions, thus must respect Pauli's exclusion principle, each occupying a single state, only occupied by that single electron.
+ These quantum numbers will provide information of their specific electron's wavefunction, which, when evaluated by operation of the Hamiltonian, will yield that state's energy.
+Furthermore, beside the occupied states, more energetic unoccupied states will still be part of the system's eigenfunctions basis.
+
+The work performed in this thesis will explore what would happen should the atomic system experience a perturbation that changes what the occupied and unoccupied states are, while still preserving the number of electrons within.
+
+
+X-ray fluorescence spectroscopy has many uses and applications in a wide range of scientific areas. In this form of spectroscopy, the element under study, composed of the nucleus and $N$ orbiting electrons, is bombarded with X-rays leading to the photoionization of inner-shell electrons and leaving a vacancy where the ejected electron used to be (Figure \ref{fig:photoionization}).
+The atomic structure, now composed of $N-1$ electrons, will be left in an energetically unstable state, due to there being other possible lower energy configurations. This will lead to various processes of atomic relaxation, where the system will rearrange itself in order to find a lower energy configuration.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[
+        >={Stealth[scale=2]},
+        photon/.style={decorate,decoration={snake,post length=3mm}}
+    ]
+        \draw (0,0) -- (3,0) node[right]{Inner shell};
+        \draw[fill=blue!50!white] (1,0) circle (0.25) node {$\uparrow$};
+        \draw[fill=blue!50!white,dashed,opacity=0.5] (2,0) circle (0.25) node {$\downarrow$};
+        \draw[->,photon](3.5,1) node[above right]{$h\nu$>E$_{\text{b}}$} -- (2.25,0.25);
+    
+        \draw[dashed] (0,3) -- (3,3);
+        \draw[dashed,draw opacity=0.5] (0,3.1) -- (3,3.1) node[right]{Continuum};
+        \draw[dashed,opacity=0.25] (0,3.2) -- (3,3.2);
+        \draw[dashed,opacity=0.1] (0,3.3) -- (3,3.3);
+        \draw[dashed,opacity=0.05] (0,3.4) -- (3,3.4);
+        \draw[fill=blue!50!white] (2,3.5) circle (0.25) node at (2,4){E$_{\text{k}}$=$h\nu$-E$_{\text{b}}$};
+        \draw[->] (2,0.3) -- (2,3.2);
+    
+        \draw[-Stealth] (-0.5,-1) -- (-0.5,4) node[anchor=south east]{E};
+        \draw (-0.4,3) -- (-0.6,3) node[left]{0};
+        \draw (-0.4,0) -- (-0.6,0) node[left]{-E$_{\text{b}}$};
+    \end{tikzpicture}
+    \caption{Photoionization.}\label{fig:photoionization}
+\end{figure}
+
+
+
+The main processes for this rearrangement are two different competing processes: radiative relaxation, where an electron from a higher orbital changes state in order to now occupy the orbital where the vacancy was, emitting an X-ray photon of characteristic energy, allowing for the easy identification of the element at study;
+The other competing process, the non-radiative relaxation, more commonly know as the auger process, will still have the electron transit between states, but where  a photon was previously emitted, a new ionization will now occur.
+
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \begin{tikzpicture}[
+            >={Stealth[scale=2]},
+            photon/.style={decorate,decoration={snake,post length=3mm}}
+        ]
+            \draw (0,0) -- (3,0) node[right]{Inner shell};
+            \draw[fill=blue!50!white] (1,0) circle (0.25) node {$\uparrow$};
+            \draw[fill=blue!50!white] (2,0) circle (0.25) node {$\downarrow$};
+            \draw[->,photon](2.25,0.25)  --  (3.5,1)node[above right]{$h\nu$=E$_{\text{b}_1}$-E$_{\text{b}_2}$};
+        
+            \draw[dashed] (0,3) -- (3,3);
+            \draw[dashed,draw opacity=0.5] (0,3.1) -- (3,3.1) node[right]{Continuum};
+            \draw[dashed,opacity=0.25] (0,3.2) -- (3,3.2);
+            \draw[dashed,opacity=0.1] (0,3.3) -- (3,3.3);
+            \draw[dashed,opacity=0.05] (0,3.4) -- (3,3.4);
+            \draw[->] (2,1.7) -- (2,0.3);
+
+            \draw (0,2) -- (3,2) node[right]{Upper level};
+            \draw[fill=blue!50!white,dashed,opacity=0.5] (2,2) circle (0.25);
+
+
+
+            \draw[-Stealth] (-0.5,-1) -- (-0.5,4) node[anchor=south east]{E};
+            \draw (-0.4,3) -- (-0.6,3) node[left]{0};
+            \draw (-0.4,0) -- (-0.6,0) node[left]{-E$_{\text{b}_1}$};
+            \draw (-0.4,2) -- (-0.6,2) node[left]{-E$_{\text{b}_2}$};
+        \end{tikzpicture}
+        \caption{Radiative Decay}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{tikzpicture}[
+            >={Stealth[scale=2]},
+            photon/.style={decorate,decoration={snake,post length=3mm}}
+        ]
+            \draw (0,0) -- (3,0) node[right]{Inner shell};
+            \draw (0.5,1.5) -- (1.5,1.5);
+            \draw[fill=blue!50!white] (1,0) circle (0.25) node {$\uparrow$};
+            \draw[fill=blue!50!white] (2,0) circle (0.25) node {$\downarrow$};
+            
+            \draw[dashed] (0,3) -- (3,3);
+            \draw[dashed,draw opacity=0.5] (0,3.1) -- (3,3.1) node[right]{Continuum};
+            \draw[dashed,opacity=0.25] (0,3.2) -- (3,3.2);
+            \draw[dashed,opacity=0.1] (0,3.3) -- (3,3.3);
+            \draw[dashed,opacity=0.05] (0,3.4) -- (3,3.4);
+            \draw[->] (2,1.7) -- (2,0.3);
+            \draw[->] (1,1.8) -- (1,3.2);
+    
+            \draw (0,2) -- (3,2) node[right]{Upper level};
+            \draw[fill=blue!50!white,dashed,opacity=0.5] (2,2) circle (0.25);
+            \draw[fill=blue!50!white,dashed,opacity=0.5] (1,1.5) circle (0.25);
+    
+            \draw[fill=blue!50!white] (1,3.5) circle (0.25) node at (1.5,4){E$_{\text{k}}$=$E_{b_1}-E_{b_2}-E_{b_3}$};
+    
+            \draw[-Stealth] (-0.5,-1) -- (-0.5,4) node[anchor=south east]{E};
+            \draw (-0.4,3) -- (-0.6,3) node[left]{0};
+            \draw (-0.4,0) -- (-0.6,0) node[left]{-E$_{\text{b}_1}$};
+            \draw (-0.4,2) -- (-0.6,2) node[left]{-E$_{\text{b}_2}$};
+            \draw (-0.4,1.5) -- (-0.6,1.5) node[left]{-E$_{\text{b}_3}$};
+        \end{tikzpicture}
+        \caption{Auger Transition}
+    \end{subfigure}
+    \caption{Principal atomic relaxation processes.}
+\end{figure}
+
+In reality, when the initial vacancy is generated due to an ionization, two more processes can occur: shake-off and shake-up. When this processes occur, due to a sudden change in the potential felt by the remaining electrons, during the ionization, one other electron may become unbound, occurring a second ionization, in the shake-off process, or may be excited to an upper state, during shake-up.
+These processes occur due to the fact that the system, while it may have had a set of eigenstates before ionization, was changed when an electron was removed, leading to the previous wavefunctions no longer being part of the new system's eigenfunction basis, and the new system not being able to be accurately described by the previous system's states.  
+These processes, will not be studied throughout this thesis, as the work in question focuses on excitation, while disregarding the possibility of initial ionization, later explained in Section~\ref{sec:exc}.
+
+
+\subsubsection{Transition notation}
+
+The characteristic radiation measured from the relaxation of a post-ionization unstable atomic system is one of the main ways of identifying an atomic element. This is due to the photons emitted from different elements possessing distinct, quantized values of energy, forming well-defined energy lines when observed in a spectrometer. These lines have specific notations denoting them by vacancy (hole) and the electron's orbital.
+A very illustrative diagram, exemplifying some transitions can be found in Appendix~\ref{ap:trans}.
+
+Throughout this thesis, Siegbahn notation will be used, for the most part, but should the reader prefer
+IUPAC's, Table~\ref{tab:siegIUPAC} explains the conversion between notations.
+
+\begin{table}[h!]
+    \centering
+    \caption{Siegbahn VS IUPAC notation. Adapted from \cite{Vitha2015}.}\label{tab:siegIUPAC}
+    \rowcolors{1}{}{GhostWhite}
+    \begin{tabular}{cl |cl | cl}
+        \toprule Siegbahn &IUPAC&Siegbahn &IUPAC&Siegbahn &IUPAC\\
+        \midrule
+        $K_{\alpha_1}$& $K-L_3$&$L_{\alpha_1}$&$L_3 - M_5$&$L_{\gamma_1}$&$L_2 - N_4$ \\
+        $K_{\alpha_2}$&$K-L_2$&$L_{\alpha_2}$&$L_3 - M_4$&$L_{\gamma_2}$&$L_1 - N_1$ \\
+        $K_{\beta_1}$&$K-M_3$&$L_{\beta_1}$&$L_2 - M_4$&$L_{\gamma_3}$&$L_1 - N_2$ \\
+        $K_{\beta_2}^{I}$&$K-N_3$&$L_{\beta_2}$&$L_3 - N_5$&$L_{\gamma_4}$&$L_1 - O_3$ \\
+        $K_{\beta_2}^{II}$&$K-N_2$&$L_{\beta_3}$&$L_1 - M_3$&$L_{\gamma_4^{'}}$&$L_1 - O_2$ \\
+        $K_{\beta_3}$&$K-M_2$&$L_{\beta_4}$&$L_1 - M_2$&$L_{\gamma_5}$&$L_2 - N_1$ \\
+        $K_{\beta_4}^{I}$&$K-N_5$&$L_{\beta_5}$&$L_3 - O_{4,5}$&$L_{\gamma_5}$&$L_2 - O_4$ \\
+        $K_{\beta_4}^{II}$&$K-N_4$&$L_{\beta_6}$&$L_3 - N_1$&$L_{\gamma_8}$&$L_2 - O_1$ \\
+        $K_{\beta_4}^{x}$&$K-N_4$&$L_{\beta_7}$&$L_3 - O_1$&$L_{\gamma_8^{'}}$&$L_2 - N_{5,6}$ \\
+        $K_{\beta_5}^{I}$&$K-M_5$&$L_{\beta_8}$&$L_3 - N_{6,7}$&$L_{\eta}$&$L_2 - M_1$ \\
+        $K_{\beta_4}^{II}$&$K-M_4$&$L_{\beta_9}$&$L_1 - M_5$&$L_{l}$&$L_3 - M_1$ \\
+        &&$L_{\beta_9}$&$L_1 - M_4$&$L_{s}$&$L_3 - M_3$\\
+        &&$L_{\beta_9}$&$L_3 - N_4$&$L_{t}$&$L_3 - M_2$\\
+        &&$L_{\beta_9}$&$L_2 - M_3$&$L_{u}$&$L_3 - N_{6,7}$\\
+        &&&&  $L_{v}$&$L_2 - N_{6,7}$\\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Excitation as a vacancy generator}\label{sec:exc}
+
+As previously mentioned, throughout this thesis, while the study is focused on the characteristic radiation emitted during the atomic relaxation process, the vacancy generation method will be due to an excitation (Figure~\ref{fig:exc}), instead of an ionization. This is one possibility of the many so-called satellite states, where the electronic configuration present during the relaxation process contains additional electrons or holes.
+The characteristic radiation from these states may be one of the keys needed to fully comprehend and deconvolute an element's emission spectra.
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[
+        >={Stealth[scale=2]},
+        photon/.style={decorate,decoration={snake,post length=3mm}}
+    ]
+        \draw (0,0) -- (3,0) node[right]{Inner shell};
+        \draw[fill=blue!50!white] (1,0) circle (0.25) node {$\uparrow$};
+        \draw[fill=blue!50!white,dashed,opacity=0.5] (2,0) circle (0.25) node {$\downarrow$};
+        \draw[->,photon](3.5,1) node[above right]{$h\nu$=E$_{\text{b}_1}$-E$_{\text{b}_2}$} -- (2.25,0.25);
+    
+        \draw[dashed] (0,3) -- (3,3);
+        \draw[dashed,draw opacity=0.5] (0,3.1) -- (3,3.1) node[right]{Continuum};
+        \draw[dashed,opacity=0.25] (0,3.2) -- (3,3.2);
+        \draw[dashed,opacity=0.1] (0,3.3) -- (3,3.3);
+        \draw[dashed,opacity=0.05] (0,3.4) -- (3,3.4);
+        \draw[->] (2,0.3) -- (2,1.7);
+
+        \draw (0,2) -- (3,2) node[right]{Upper level};
+        \draw[fill=blue!50!white] (2,2) circle (0.25);
+
+
+
+        \draw[-Stealth] (-0.5,-1) -- (-0.5,4) node[anchor=south east]{E};
+        \draw (-0.4,3) -- (-0.6,3) node[left]{0};
+        \draw (-0.4,0) -- (-0.6,0) node[left]{-E$_{\text{b}_1}$};
+        \draw (-0.4,2) -- (-0.6,2) node[left]{-E$_{\text{b}_2}$};
+    \end{tikzpicture}
+    \caption{Resonant Photoexcitation}\label{fig:exc}
+\end{figure}
+
+\subsection{Radiative transitions}
+
+
+
+In terms of quantum mechanics, the properties of a system's change of state can be derived by perturbation theory, where the change of energy can be treated as perturbation, and takes into account angular momentum  conservation laws as basis for the selection rules.
+
+The transition's radiation type can be of two main types, which can be either Electric, $E_k$, or Magnetic, $M_k$, with $k$ representing its multiplicity.
+In both these transitions the system's total angular momentum is allowed a change of $\Delta J = 0, \pm k$, and so does its projection, $M_J$. There are, however,  different changes of parity in the system, depending on the occurred transition, and the selection rules have many other exceptions.
+
+It is also of note that, usually, for the same multiplicity, an $E$ transition is more intense than an $M$, and that it is also possible for rare 2-photon transitions to take place, where a combination of different transition types can occur.
+
+
+
+The intensity of a transition is proportional to the squared norm of the perturbation's matrix element involving the initial and final state $\qty(\Gamma_{if}\propto \qty|\mel**{\psi_i}{H'}{\psi_f}|^2)$. It should also be noted that the electron's initial state population will serve as a scaling factor for the transitions rate.
+For example, while the transition rate for a $2p_{1/2}\rightarrow1s$ and $2p_{3/2}\rightarrow1s$ should be about the same, the orbital $2p_{3/2}$ has double the population $2p_{1/2}$ has, hence why the $K_{\alpha_2}$ line has about half the $K_{\alpha_1}$ line's intensity.
+
+One should also mention that monochromatic transitions do not exist. While the transition might have a well-defined energy, calculated by the difference in energy between the initial and final states, due to Heisenberg's uncertainty principle, $\Delta E \Delta t > \frac{\hbar}{2}$, there will exist a natural energy broadening, the natural width. The shapes representing these transitions are given by a Lorentzian distribution.
+
+
+
+
+
+
+
+
+\section{Atomic Structure Calculations}
+
+When studying a system composed of multiple charged bodies, one must consider all the existing interactions. Whilst there are known analytical solutions for the 2-bodies Hydrogenoid systems, with the presence of more non spatially-bound particles, these become impossible to find for the Schrödinger equation, even while using the Born-Oppenheimer approximation.
+This approximation considers the nucleus as static, at a fixed position, making the electrons the only non spatially-bound particles in the system. That way, there was a need for the development of numerical solutions to solve this problem.
+
+\subsection{The non-relativistic Hamiltonian}
+
+The first approach used in order to solve the many-bodies problem used a non-relativistic consideration. This way, the Hamiltonian consisted on the sum of the system's non-relativistic momentum-related energies and the Coulomb interactions between bodies, while still considering the Born-Oppenheimer approximation.
+
+Essentially, and in atomic units:
+
+
+
+
+\begin{equation}
+    \begin{gathered}
+        \underbrace{\sum_i^N \overbrace{ \dfrac{1}{2}\laplacian_i}^{E_1}  \overbrace{-\frac{Z}{r_i}}^{E_2}}_{\text{Individual Hamiltonian}}  + \underbrace{\sum_{i<j}^{j}\overbrace{\dfrac{1}{r_{ij}}}^{E_3}}_{\text{Pair repulsion}}\\
+        E_1\rightarrow\text{Momentum}\quad E_2\rightarrow\text{e$^-$nuc. Coulomb attraction}\quad E_3\rightarrow\text{e$^-$e$^-$ Coulomb repulsion}
+    \end{gathered}
+    \label{eq:nonRelHam}
+\end{equation}
+
+
+
+\subsubsection{The Hartree-Fock Method}\label{sec:HF}
+\textit{Note: This section used the works in~\cite{HFweb,JPS,Ramon,Blinder2018} as reference.}
+
+Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field self-consistency method.
+
+In this method, while studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one indicating the electron's spin, $\chi$, as to be able to account for relativistic effects.
+
+\begin{equation}
+    u=\psi\chi
+\end{equation}
+
+The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle, due to the electron's fermionic nature. In order to respect this, $\Psi$ is to be composed of a Slater determinant:
+
+\begin{equation}
+    \Psi=\frac{1}{\sqrt{N!}}\mqty| u_1(x_1) & u_2(x_1) & \cdots & u_N(x_1)\\
+    u_1(x_2) & u_2(x_2) & \cdots & u_N(x_2)\\
+    \vdots & \vdots& \ddots&\vdots\\
+    u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|
+\end{equation}
+
+It is of high importance that the wavefunctions must form an orthonormal basis. These are to be initialized as trial wavefunctions. 
+
+
+The main goal of this method is to follow the variational principle and to minimize a functional, with the purpose of minimizing the system's energy. This optimal, yet unknown energy, $E_0$ (calculated by Operating the Hamiltonian on the optimal wavefunctions), will try to be reached by variating the trial functions that provide a non-minimized solution, with $\ev**{H}{\Psi}\geq E_0$.
+
+The computational method consists on starting with the previously mentioned trial wavefunctions, using them to calculate Hartree-Fock's potential through the HF equations.% \textbf{Acho que aqui nao tenho espaço de as explicar. ou meto em appendix ou falo so ja na tese} 
+
+
+In a very simplified way, the self-consistent Hartree-Fock computational method can be represented by the block diagram in Figure~\ref{fig:diagram}.
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[node distance=2cm,every text node part/.style={align=center}]
+        \node (initWF) [startstop] {Define Initial \\ Test Wavefunctions};
+        \node (loadWF) [io, below of=initWF, yshift=-0cm] {Initial \\ Wavefunctions};
+        \node (EnCalc1) [process,right of = loadWF,xshift= 2cm]{Compute \\ Energy ($E_i$)};
+        \node (calcPotential) [process,below of= loadWF]{Compute density matrix \\ and HF potential};
+        \node (calcWF) [process, below of = calcPotential]{Solve HF equations \\ for new potential};
+        \node (newWF) [io, below of=calcWF] {New \\ Wavefunctions};
+        \node (EnCalc2) [process,right of = newWF,xshift= 2cm]{Compute \\ Energy ($E_f$)};
+        \node (EnComp) [decision,below of = newWF,yshift=-1cm]{$E_i-E_f\leq \lambda$?};
+        \node (stop) [startstop,right of = EnComp,xshift=2cm] {End of \\ algorithm};
+
+        \draw [arrowdiag] (initWF) -- (loadWF);
+        \draw [arrowdiag] (loadWF) -- (EnCalc1);
+        \draw [arrowdiag] (loadWF) -- (calcPotential);
+        \draw [arrowdiag] (calcPotential) -- (calcWF);
+        \draw [arrowdiag] (calcWF) -- (newWF);
+        \draw [arrowdiag] (newWF) -- (EnCalc2);
+        \draw [arrowdiag] (newWF) -- (EnComp);
+        \node (aux1) [left of =EnComp,xshift=-2cm] {No};
+        \node (aux2) [left of =loadWF,xshift=-2cm] {Load new WF \\ as initial WF};
+        \draw (EnComp) -- (aux1);
+        \draw (aux1) -- (aux2);
+        \draw [arrowdiag] (aux2) -- (loadWF);
+        \draw [arrowdiag] (EnComp) --node[anchor=south]{Yes} (stop);
+    \end{tikzpicture}
+    \caption{HF method's block diagram.}\label{fig:diagram}
+\end{figure}
+
+
+
+
+
+\subsection{The Dirac Equation}
+
+\textit{Note: This section used the works in~\cite{Thaller1992,Beyer2016,Sakurai2020,Bethe1977} as reference.}
+
+
+It is no secret that the Schrödinger equation has some very considerable limitations. The fact that it does not account for the existence of the electron's spin and the lack of consideration of relativistic effects are some of the most impactful setbacks.
+%------------------------------------------------------------------------------
+
+
+
+
+Many scientists, such as Klein, Gordon and later Fock, had already conceived a relativistic correction to Schrödinger's equation, where the free-particle energy makes use of the relativistic momentum-energy relation \eqref{eq:EnMomRel}.
+
+
+ \begin{equation}
+    E=\sqrt{c^2\vb*{p}^2+m^2c^4}
+    \label{eq:EnMomRel}
+ \end{equation}
+
+
+ Which can be derived from the \gls{lorentzinvariance} \gls{MinkNorm} of the momentum \gls{fourvec}~\eqref{eq:4mom}.
+
+
+ \begin{equation}
+    p^\mu p_\mu = m^2c^2\Leftrightarrow\dfrac{E^2}{c^2}-\vb*{p}^2=m^2c^2 \Leftrightarrow  \dfrac{E^2}{c^2}= \vb*{p}^2 +m^2c^2
+    \label{eq:4mom}
+\end{equation}
+
+ Now, inputting this new energy operator into Schrödinger's equation, yields the Klein-Gordon equation \eqref{eq:KG}, allowing for Schrödinger's equation now to be Lorentz-invariant.
+
+ \begin{equation}
+    -\hbar^2 \pdv[2]{t} \vb*{\psi}=\qty(-c^2\hbar^2\laplacian + m^2c^4)\vb*{\psi}
+    \label{eq:KG}
+\end{equation}
+
+
+
+ This new approach was, however, still faulty, due to only describing spin 0 particles (e.g., some mesons), and making use of a second order derivative in the time-like component.
+
+ That way, a new equation was developed by Paul Dirac, in 1928~\cite{Dirac}, one taking into account not the classical 3 dimensional space components, but the relativistic four components.
+
+
+
+
+ Dirac took a spin at rewriting the energy-momentum relation, ending up with an equivalent equation\eqref{eq:diracEnergy}, involving $4\times 4$ matrices, due to the 4 relativistic dimensions at play, and incorporating spins into the equation by making use of the now famous Pauli matrices~\eqref{eq:pauli}.
+
+ \begin{equation}
+    E=c\vb*{\alpha}\cdot \vb*{p}+{\beta} mc^2,\quad \vb*{\alpha}=\qty(\alpha_1,\alpha_2,\alpha_3)
+    \label{eq:diracEnergy}
+ \end{equation}
+
+ \begin{align}
+    \alpha_i&=\mqty(0 & {\sigma}_i\\ {\sigma}_i&0) & {\beta}&=\mqty(I_2 & 0 \\ 0 &-I_2) &I_2&=\mqty(1&0\\0&1)\\
+    \sigma_1&=\mqty(0&1\\1&0) & \sigma_2&=\mqty(0&-i\\i&0)& \sigma_3&=\mqty(1&0\\0&-1)\label{eq:pauli}
+ \end{align}
+
+ In order to fully comprehend this shift of notation, one should equate the square of the two equations, \eqref{eq:EnMomRel} and \eqref{eq:diracEnergy}, and confirm if logic still stands.
+
+ \begin{equation}
+    c^2 \vb*{p}^2 + m^2c^4 = c^2\vb*{\alpha}^2\vb*{p}^2+2 m c^3 \vb*{\alpha}\cdot \vb*{p} \cdot \beta + \beta^2 m^2 c^4
+ \end{equation}
+
+ In order for this equation to make sense, the following conditions must be true (which in fact, they are):
+
+\begin{gather}
+    \begin{cases}
+        c^2\vb*{p}^2=c^2\vb*{\alpha}^2 p^2  &\Leftrightarrow \vb*{\alpha}^2=1\\
+        0=2mc^3  p \vb*{\alpha} \beta &\Leftrightarrow \vb*{\alpha} \beta =0\\
+        m^2c^4=\beta^2 m^2c^4     &\Leftrightarrow \beta^2 =1
+    \end{cases}
+\end{gather}
+
+
+With all the previous considerations taken into account, one can now construct Dirac's free-particle equation\eqref{eq:DiracEq}:
+
+\begin{equation}
+    i\hbar \pdv{t}\vb*{\psi}=\qty( c\vb*{\alpha}\cdot \vb*{p} +\beta m c^2)\vb*{\psi}=\mqty(mc^2 I_2& -i\hbar c \vb*{\sigma}\cdot \grad\\-i\hbar c \vb*{\sigma}\cdot \grad & -mc^2 I_2)\cdot \mqty(\psi_1\\\vdots\\\psi_4)
+    \label{eq:DiracEq}
+\end{equation}
+
+This equation, however, as mentioned above, can only describe a single particle present in a field-free region. In order to account for the existence of a field, such as the electromagnetic field, derived from the four-potential $A^\mu$, composed by the electric scalar potential field, $A^0=\phi$, and the vector potential, $(A^1,A^2,A^3)=\vb*{A}$, the following change to the momentum four-vector must be made:
+
+
+\begin{equation}
+    p^\mu \rightarrow p^\mu - e A^\mu,\quad A^\mu = \qty(\phi,\vb*{A})
+\end{equation}
+
+The Hamiltonian can now be rewritten to account for the presence of the electromagnetic field~\eqref{eq:DiracEqField}. This way it is possible to include, for example, the electron-nucleus Coulomb attraction.
+
+\begin{equation}
+    H_D=-e\phi + \beta m c^2 + \vb*{\alpha}\qty(c\vb*{p}+e\vb*{A})
+    \label{eq:DiracEqField}
+\end{equation}
+
+For a central potential, as is the one generated by the nuclear charge (assuming Born-Oppenheimer's approximation), the 3 space-like components from the four-potential are null, and the time-like component, $\phi=\dfrac{Z e}{r}$. The Hamiltonian gains now a more recognizable form:
+
+\begin{equation}
+    H_D=-\frac{e^2 Z}{r} + \beta m c^2 + \vb*{\alpha}\cdot\vb*{p}c
+    \label{eq:diracHam}
+\end{equation}
+
+Something very interesting about Dirac's equation is the fact that it does not yield a single solution, but in fact, two: the large component (positive energy values), for particles, and the small component (negative energy values), for antiparticles.
+
+\subsection{The Dirac-Breit Equation}
+
+Once again, when considering a system composed of many bodies, one must consider all the present interactions, namely, the electron-electron repulsion in an atom.
+ Breit, in 1929, had created a relativistic approach to treat the electron-electron interactions, consisting on a set of equations building upon the classical non-relativistic Hamiltonian from equation \eqref{eq:nonRelHam}, which can be consulted in Appendix \ref{ap:Breit}.
+  Breit's equations are able to account for angular momenta couplings and estimate level energy splittings, the change of a particle's apparent mass as a function of velocity, and even include the interaction of an applied external magnetic field~\cite{Bethe1977}.
+
+  It is quite obvious Breit's equations introduce a great complexity in the search of the new Hamiltonian's eigenfunctions. However, when trying to include an approximation of Breit's considerations into Dirac's equation, one must add the following operator to the one present in equation \eqref{eq:diracHam}:
+
+  \begin{equation}
+    H_B = \sum_{i>j}\frac{e^2}{r_{ij}} - e^2\qty(\frac{\vb*{\alpha}_i\vb*{\alpha}_j}{r_{ij}}+\frac{\qty(\vb*{\alpha}_i \grad_i)\qty(\vb*{\alpha}_j \grad_j)r_{ij}}{2})  
+    \label{eq:BreitHam}
+  \end{equation}
+
+This set of terms will account for the fact that Coulomb interactions, mediated by the electric field, and therefore, \gls{virtual photons}, cannot occur at instantaneous velocities, but at the speed of light.
+
+\subsection{The \gls{MCDF} Method}
+
+As previously mentioned in section \ref{sec:HF}, there is a need for a numerical method in order to compute and find the eigenfunctions for a many-body Hamiltonian. While the Hartree-Fock method was able to reasonably solve the non-relativistic problem, now, while considering the Dirac-Breit Hamiltonian from equations \eqref{eq:diracHam} and \eqref{eq:BreitHam}, there is a need for a new method.
+
+Hence, the state of the art \gls{MCDFGME} arises. This self-consistent iterative method, based on the same method present in section \ref{sec:HF}, is able to solve and find eigenfunctions for a multielectronic system, now taking into account the Dirac-Breit Hamiltonian. Moreover, it is also capable of incorporating electron correlation and many QED effects not yet considered in the relativistic equation, such as the Lamb-shift, vacuum polarization, and the electron's self energy.
+A brief description of these contributions can be found in  appendix \ref{ap:QED}
+
+
+
+
+\section{State of the Art}
+
+
+\subsection{Copper's characteristic X-rays}
+Copper is a dominant element in today's society. While most of its uses are day-to-day related, it also has a high prevalence in many physical areas, namely, copper's $K_\alpha$ transitions~\cite{Nguyen2022}. While these radiative transitions have been measured countless times, with very well recorded energy values~\cite{Melia2020,Melia2019,Sorum1987,Bremer1982,Deutsch1995}.
+It is also common knowledge Copper's $K_\alpha$ lines do not have a symmetric distribution, since both $K_{\alpha_1}$ and $K_{\alpha_2}$ line display a negative (left-tailed) skewness. Due to this fact, most of the fitting models used in order to analyze both Copper's $K_{\alpha_1}$ and $K_{\alpha_2}$ transitions involve the usage of a Lorentzian doublet, for each line~\cite{Ito2016,Berger1986}.
+While many associate these asymmetries due to satellite states formed by shake processes~\cite{Galambosi2003,Nguyen2022}, with some theoretical studies having been performed~\cite{Chantler2009}, some authors note it could be due to X-ray resonant Raman scattering~\cite{Galambosi2003}. This effect occurs when a sample is exposed to energies under to near the ionization threshold, when a bound electron is excited to an upper state~\cite{RamanBook}.
+While there are some studies exploring this topic, most are focused on the cascade of low energy transitions that follow the post-scattering excitation~\cite{Carra1995}. Nonetheless, a previous experimental study has been able to show that for Copper exposed to synchrotron radiation tuned to energies near K-shell's ionization energy, some $K_{\alpha_1}$ transitions demonstrated to be narrower than expected~\cite{Eisenberger1976}.
+
+
+
+
+
+
+
+
+\subsection{MCDFGME capabilities}
+
+It has been noted multiple times that \gls{MCDFGME} code excels in atomic structure calculations of super-heavy elements and highly-charged ions, where relativistic and QED effects are in prevalence \cite{Indelicato2011,Indelicato1987,Gorceix1987}. However, it has also been proven to be an excellent tool for the calculation of less ionized and lighter atomic systems \cite{Guerra2021}.
+
+In addition, the \gls{MCDFGME} code is able to calculate radiative and auger transition rates for the calculated configurations, which can be used in the simulation of theoretical spectra, due to being able to compute the transition's intensity and natural width.
+Since it is able to perform calculations, even for exotic atoms, it can be used to further understand many QED phenomena, further exploring the limits of our theory, and it's comparison to experimental data \cite{Paul2021}.
+
+It should also be of note that there are many other code alternatives. While \gls{MCDFGME}, which is a close-source project, provides a very high precision in the performed calculations at a high computational cost, \gls{FAC}, is an open source code which requires less computational time for the calculations, however, it lacks \gls{MCDFGME}'s precision, since it only is able to consider all the spin-orb couplings, but does not mix the possible configurations originating them. 
+It can, however, calculate other collisional processes, such as electronic impact excitation cross-sections~\cite{FAC}. \gls{GRASP2k}~\cite{GRASP2K}, and \textit{AUTOSTRUCTURE}~\cite{AUTOSTRUCTURE} are other codes with some of the same capabilities.
+
+
+\section{Methodology}
+
+As mentioned before, in this thesis, atomic relaxation transitions where the ejected inner shell electron, responsible for the generated hole, was not sent to the continuum, but excited to an upper state.
+
+In order to use \gls{MCDFGME}, since it is written in FORTRAN, there will be a multitude of input/output files, with the extension \textit{.f0X}. The most important file extensions are \textit{.f05}, the input file, where the calculation settings are indicated; \textit{.f06}, where the energy results will be displayed, among others, such as some matrix element overlaps, both important to evaluate the convergence.
+ Other file extensions, such as \textit{.f09}, also store the final electrons' wavefunctions and can be quite useful for debugging processes, and for calculating other atomic parameters, such as shake probabilities, which will not be of relevance as of this thesis.
+
+ An example of a normal atomic structure calculation for an excited Copper atom (which has a ground state configuration of $1s^2 2s^2 2p^6 3s^2 3p^6 3d^{10} 4s^1$) is as follows:
+
+ One starts by choosing the excitation upper orbital, and by  writing in a text file all the possible 1 hole configurations from where the electron may have originated from. An example can be found in Annex~\ref{an:input}. This represents all the possible excited states where the electron is in the chosen orbital.
+ 
+ The same process is now performed for a 2 hole configuration, where an additional ionization occurred. This represents the possible states after the occurrence of the Auger process, which is in competition with the radiative decay.
+
+ Now, a \textit{bash} script, \textit{runMCDFEC.sh} is to be executed. Now, it will be possible to choose the atomic number of the element in study, the isotope mass, and, if one wishes so, to perform the calculations for an exotic atom, where, instead of electrons, other particles such as muons, negative hadrons and antiparticles can orbit the nucleus. 
+ The script will calculate all the possible spin-orbit couplings and eigenvalues, and then finally apply the \gls{MCDFGME} method.
+
+ Depending on the excitation orbital, there will be thousands to tens of thousands of possibilities for the final configuration, with this number increasing with the quantum number of angular momentum, $l$, of the orbital.
+ 
+ However, not all the calculations performed will automatically converge. Each time, a few hundreds of computed states will fail convergence. In a file, generated for the compilation of the calculation results, these states will be missing the total system's energy, or will display a significant energy difference for the results obtained by using two different methods, summing and integrating.
+
+ The configurations that were not able to converge will now have to be converged by hand. In order to do this, their \textit{.f05} will have to be edited, where different methods will be chosen for the calculation for each specific orbital. As there are multiple possible methods and combinations, this step can take up to a few weeks to complete.
+
+ After eliminating all the convergence problems, the radiative transition rates will be calculated, by operating the transition operator on all the possible 1 hole - 1 hole configuration pair combinations. The same will follow for all the pairs of 1 hole - 2 holes configurations, in order to compute the auger transition rates. Finally, the process is repeated for the 2 holes - 2 holes configurations, for the radiative transitions of the auger-generated satellite states.
+
+
+ Lastly, all the calculated transitions' widths will be summed in order to calculate each subshell's fluorescence yield (calculated by the sum of all radiative transition widths divided by the sum of all the radiative and non-radiative transition widths).
+
