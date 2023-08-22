@@ -133,7 +133,7 @@ In the case of radiative relaxation, an upper shell electron will move and occup
 On the other hand, an Auger emission occurs when in the process of an upper electron shifting to a shell hole, energy is released not in the form of photons, but by the atomic system going through the process of the ionization of a lesser bound electron.
 
 
-In reality, when the initial vacancy is generated, two more processes can occur: shake-off and shake-up. Due to a sudden change in the potential felt by the remaining electrons, whilst going through the ionization, one other electron may become unbound, leading to a second ionization, the shake-off process, or may be excited to an upper state, during shake-up. These processes' occurrence probabilities are related to the rate at which the electron leaves the system during the first ionization. For lower electron emission energies, where the ionization process is rather ``slow'', and there is not much energy for shake up/off to occur, the adiabatic regime reigns. In this regime, the shake probabilities are small, and increase with the beam's energy. For higher energies, the transition occurs in the sudden regime, where the electrons' exit can be considered instantaneous. Now, while the shake probabilities still increase with the energy of the beam, they quickly saturate for a maximum value of probability, which can be calculated by computing overlaps between the electrons' initial and final states. These processes, however, are out of scope for this thesis, but should the reader be interested, the model conceived in~\cite{Thomas_model} predicts the shake probability as a function of energy.\missingfigure{Maybe put a Thomas model plot?}
+In reality, when the initial vacancy is generated, two more processes can occur: shake-off and shake-up. Due to a sudden change in the potential felt by the remaining electrons, whilst going through the ionization, one other electron may become unbound, leading to a second ionization, the shake-off process, or may be excited to an upper state, during shake-up. These processes' occurrence probabilities are related to the rate at which the electron leaves the system during the first ionization. For lower electron emission energies, where the ionization process is rather ``slow'', and there is not much energy for shake up/off to occur, the adiabatic regime reigns. In this regime, the shake probabilities are small, and increase with the beam's energy. For higher energies, the transition occurs in the sudden regime, where the electrons' exit can be considered instantaneous. Now, while the shake probabilities still increase with the energy of the beam, they quickly saturate for a maximum value of probability, which can be calculated by computing overlaps between the electrons' initial and final states. These processes, however, are out of scope for this thesis, but should the reader be interested, the model conceived by Thomas~\cite{Thomas_model} predicts the shake probability as a function of energy.\missingfigure{Maybe put a Thomas model plot?}
 
 %Another explanation for these phenomena is the fact that, for example, during an ionization, the initial and final system do not possess the same set of eigenfunctions, due to the change of the number of electrons in the system. This means that, for example, an electron which did not take part in the ionization, and whose wavefunction is described by a set of quantum numbers, post-ionization can end up in a different state, defined by a different set, or even become unbound.
 
@@ -214,7 +214,7 @@ The characteristic radiation from transitions that originated from these states 
 
 
 
-In terms of quantum mechanics, the properties of a system's change of state can be derived using perturbation theory, where the change of energy can be treated as perturbation, and takes into account angular momentum  conservation laws as basis for the selection rules.
+In terms of quantum mechanics, the properties of a system's change of state can be derived using perturbation theory, where a change in energy can be treated as perturbation, and takes into physical properties \sout{angular momentum}  conservation laws as basis for the selection rules.
 
 The transition's radiation type can be of two main flavors, Electric, $E_k$, or Magnetic, $M_k$, with $k$ representing its multiplicity. These labels indicate which of the \gls{EMF} component had the strongest influence on the transition's occurrence.
 For both these types of transitions, the system's total angular momentum is allowed a change of $\Delta J = 0, \pm k$, and so does its projection, $M_J$. However, different transitions lead to different changes of parity in the system and to different selection rules.
@@ -231,13 +231,13 @@ One should also mention that monochromatic transitions do not exist. While the t
 
 
 
-\section{Atomic Structure Calculations}
+\section{Solving the atomic many-body problem}
 
-When studying a system composed of multiple charged bodies, one must consider all the existing interactions. Whilst there are known analytical solutions for 2-bodies Hydrogenoid systems, with the presence of more non spatially-bound particles, these become impossible to find for Schrödinger's equation, even using Born-Oppenheimer's approximation (the nucleus is considered as static, at a fixed position, making the electrons the only non spatially-bound particles in the system). That way, there was a need for the development of a numerical method in order to find solutions to these complex systems.
+When studying a system composed of multiple charged bodies, one must consider all the existing interactions. Whilst there are known analytical solutions for 2-bodies Hydrogenoid systems, with the presence of more non spatially-bound particles, the Coulomb interaction pairs lead to the impossibility of finding a set of analytical wavefunctions which are a part of the Hamiltonian's eigenset. Consecutively, the need for a numerical method that is able to compute solutions for these complex systems arose.
 
 \subsection{The non-relativistic Hamiltonian}
 
-The first approach used in order to solve the many-bodies problem used a non-relativistic consideration. This way, the Hamiltonian consists on the sum of the system's non-relativistic momentum-related energies and the energy of Coulomb interactions between all the bodies in the system, while still considering the Born-Oppenheimer approximation.
+The first approach used in order to solve the many-bodies problem used a non-relativistic consideration. This way, the Hamiltonian consists on the sum of the system's non-relativistic momentum-related energies and the energy of Coulomb interactions between all the bodies in the system, while considering the nucleus as fixed in space, due to it being thousands of times more massive than the orbiting electrons.
 
 Essentially, and in atomic units:
 
@@ -255,17 +255,16 @@ Essentially, and in atomic units:
 
 
 \subsection{The Hartree-Fock Method}\label{sec:HF}
-\textit{Note: The works in~\cite{HFweb,JPS,Ramon,Blinder2018} were used as guidance for this section.}
 
-Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field's self-consistency\todo{Describe what self-consistency is (put it in the glossary)} method.
+This numerical method is one of the staple and most enduring procedures for solving the problem associated with a many-body system. As a side note, an in-depth explanation on all the intricacies of this method can be found in many of the literature, but as for the writing of this thesis, the works~\cite{HFweb,JPS,Ramon,Blinder2018} were the ones consulted.
 
-In this approach, while studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one indicator of the electron's spin, $\chi$, as to be able to account for Pauli's exclusion principle and, if so desired, relativistic effects.
+Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field's \gls{selfconsistency}. In this approach, when studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one related to the electron's spin, $\chi$, as to be able to account for Pauli's exclusion principle and, if so desired, relativistic effects.
 
 \begin{equation}
     u=\psi\chi
 \end{equation}
 
-The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle\todo{Explain antisymmetry and put it in the glossary}, due to the electron's fermionic nature. In order to respect this, $\Psi$ is to be composed of a Slater determinant:
+The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle\todo{Explain antisymmetry and put it in the glossary}, due to the electron's fermionic nature. In order to achieve this, $\Psi$ is to be composed of a Slater determinant:\todo{Explain in the glossary}
 
 \begin{equation}
     \Psi=\frac{1}{\sqrt{N!}}\mqty| u_1(x_1) & u_2(x_1) & \cdots & u_N(x_1)\\
@@ -274,10 +273,10 @@ The wavefuction capable of describing the whole system, $\Psi$, should be somewh
     u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|
 \end{equation}
 
-It is of high importance that the wavefunctions must form an orthonormal basis. These are to be initialized as trial wavefunctions for the numerical method. 
+It is of high importance that the wavefunction basis set respects orthonormality. These are to be initialized as trial wavefunctions for the numerical method. 
 
 
-The main goal of this algorithm is to follow the variational principle and to minimize a functional, as a way of minimizing the system's energy. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to get as close as possible to $E_0$, but always yielding $\ev**{H}{\Psi}\geq E_0$, if the calculation is correct.
+The main goal for this algorithm is to, as per the \gls{selfconsistency}, follow the variational principle and to minimize a functional, as a way of minimizing the system's energy. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to reach a solution that yields an energetic value as close to $E_0$ as possible, while always yielding $\ev**{H}{\Psi}\geq E_0$, should the calculation be correct.
 
 The computational method consists on starting with the previously mentioned trial wavefunctions, using them to calculate Hartree-Fock's potential through the HF equations.\todo{Finish the explanation}
 
@@ -439,7 +438,7 @@ This set of terms will account for the fact that Coulomb interactions, mediated 
 
 \subsection{The \gls{MCDF} Method}\todo{Ler bem o manual e explicar bem o método e todas as coisas diferentes que se podem fazer}
 
-As previously mentioned in section \ref{sec:HF}, there is a need for a numerical method in order to compute and find the eigenfunctions for a many-body Hamiltonian. While the Hartree-Fock method was able to reasonably solve the non-relativistic problem, now, while considering the Dirac-Breit Hamiltonian from equations \eqref{eq:diracHam} and \eqref{eq:BreitHam}, there is a need for a new method.
+As previously mentioned in section~\ref{sec:HF}, there is a need for a numerical method in order to compute and find the eigenfunctions for a many-body Hamiltonian. While the Hartree-Fock method was able to reasonably solve the non-relativistic problem, now, while considering the Dirac-Breit Hamiltonian from equations \eqref{eq:diracHam} and \eqref{eq:BreitHam}, there is a need for a new method.
 
 Hence, the state of the art \gls{MCDFGME} arises. This self-consistent iterative method, based on the same method present in section \ref{sec:HF}, is able to solve and find eigenfunctions for a multielectronic system, now taking into account the Dirac-Breit Hamiltonian. Moreover, it is also capable of incorporating electron correlation and many QED effects not yet considered in the relativistic equation, such as the Lamb-shift, vacuum polarization, and the electron's self energy.
 A brief description of these contributions can be found in  appendix \ref{ap:QED}
@@ -447,7 +446,7 @@ A brief description of these contributions can be found in  appendix \ref{ap:QED
 
 
 
-\section{State of the Art}
+\section{State of the Art}\todo{This really needs a re-do}
 
 
 \subsection{Copper's characteristic X-rays}
