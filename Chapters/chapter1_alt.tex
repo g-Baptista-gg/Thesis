@@ -449,8 +449,8 @@ This set of terms will account for the fact that Coulomb interactions, mediated 
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[]
-        \draw[-Stealth] (0,2.3) -- (0,10) node[anchor=south east]{E};
-        \draw (0,0) -- (0,2);
+        \draw[-Stealth] (0,2.3) -- (0,10) node[anchor=east]{E};
+        \draw (0,-2) -- (0,2);
         \draw (-0.25,1.75) -- (0.25,2.25);
         \draw (-0.25,2.05) -- (0.25,2.55);
 
@@ -499,7 +499,27 @@ This set of terms will account for the fact that Coulomb interactions, mediated 
         \draw[dashed] (6.5,3.8) --(9,3.8);
         \draw (10.0,3.3) -- (10.75,3.7)node[anchor=west] {$2P_{3/2}$};
 
+        \draw (9,5.65) -- (10.5,5.65);
+        \draw[dashed] (5.5,5.65) -- (9,5.65);
+        \draw (8.75,5.25)node[anchor=north]{$3P_{1/2}$} -- (9.5,5.65);
+        \draw (9,5.63) -- (10.5,5.63);
+        \draw (10.75,5.25)node[anchor=north]{$3S_{1/2}$} -- (10,5.65);
+        \draw[dashed] (5.5,5.65) -- (9,5.63);
+        \draw (9,5.8) -- (10.5,5.8);
+        \draw[dashed] (5.5,5.8) -- (9,5.8);
+        \draw (8.75,6.2)node[anchor=south]{$3P_{3/2}$} -- (9.5,5.8);
+        \draw (9,5.9) -- (10.5,5.9);
+        \draw (10.75,6.2)node[anchor=south]{$3D_{3/2}$} -- (10,5.8);
+        \draw[dashed] (5.5,5.9) -- (9,5.9);
+        \draw (4.5+10.5/2,5.9) -- (4.5+10.5/2,6.5)node[anchor=south]{$3D_{5/2}$};
+        \node at  (0.5+2.5/2,-1) {Schrödinger's};
+        \node at  (0.5+2.5/2,-1.5) {equation};
 
+        \node at  (4/2+5.5/2+1,-1) {Dirac's};
+        \node at  (4/2+5.5/2+1,-1.5) {equation};
+
+        \node at  (4.5+10.5/2,-1) {QED};
+        \node at  (4.5+10.5/2,-1.5) {contributions};
 
 
        % \draw (8.75,2.8)\node [anchor=north] {} --  (9.5,3.2);
