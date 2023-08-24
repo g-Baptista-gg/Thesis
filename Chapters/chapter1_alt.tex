@@ -529,6 +529,7 @@ This set of terms will account for the fact that Coulomb interactions, mediated 
     \caption{Comparison of Hydrogen level diagrams. Adapted from \cite{GSI_pres}}\label{fig:split}
 \end{figure}
 
+Should the atomic system be subjected to an external \gls{EMF}, the level structure would change due to Zeeman's and Stark's effects, allowing for the probing of the atom's hyperfine structure.
 
 
 \subsection{The \gls{MCDF} Method}\todo{Ler bem o manual e explicar bem o método e todas as coisas diferentes que se podem fazer}
@@ -568,29 +569,30 @@ It should also be of note that there are many other code alternatives. While \gl
 It can, however, calculate other collisional processes, such as electronic impact excitation cross-sections~\cite{FAC}. \gls{GRASP2k}~\cite{GRASP2K}, and \textit{AUTOSTRUCTURE}~\cite{AUTOSTRUCTURE} are other codes with some of the same capabilities.
 
 
-\section{Methodology}\todo{Take this out}
-
-As mentioned before, in this thesis, atomic relaxation transitions where the ejected inner shell electron, responsible for the generated hole, was not sent to the continuum, but excited to an upper state.
-
-In order to use \gls{MCDFGME}, since it is written in FORTRAN, there will be a multitude of input/output files, with the extension \textit{.f0X}. The most important file extensions are \textit{.f05}, the input file, where the calculation settings are indicated; \textit{.f06}, where the energy results will be displayed, among others, such as some matrix element overlaps, both important to evaluate the convergence.
- Other file extensions, such as \textit{.f09}, also store the final electrons' wavefunctions and can be quite useful for debugging processes, and for calculating other atomic parameters, such as shake probabilities, which will not be of relevance as of this thesis.
-
- An example of a normal atomic structure calculation for an excited Copper atom (which has a ground state configuration of $1s^2 2s^2 2p^6 3s^2 3p^6 3d^{10} 4s^1$) is as follows:
-
- One starts by choosing the excitation upper orbital, and by  writing in a text file all the possible 1 hole configurations from where the electron may have originated from. An example can be found in Annex~\ref{an:input}. This represents all the possible excited states where the electron is in the chosen orbital.
- 
- The same process is now performed for a 2 hole configuration, where an additional ionization occurred. This represents the possible states after the occurrence of the Auger process, which is in competition with the radiative decay.
-
- Now, a \textit{bash} script, \textit{runMCDFEC.sh} is to be executed. Now, it will be possible to choose the atomic number of the element in study, the isotope mass, and, if one wishes so, to perform the calculations for an exotic atom, where, instead of electrons, other particles such as muons, negative hadrons and antiparticles can orbit the nucleus. 
- The script will calculate all the possible spin-orbit couplings and eigenvalues, and then finally apply the \gls{MCDFGME} method.
-
- Depending on the excitation orbital, there will be thousands to tens of thousands of possibilities for the final configuration, with this number increasing with the quantum number of angular momentum, $l$, of the orbital.
- 
- However, not all the calculations performed will automatically converge. Each time, a few hundreds of computed states will fail convergence. In a file, generated for the compilation of the calculation results, these states will be missing the total system's energy, or will display a significant energy difference for the results obtained by using two different methods, summing and integrating.
-
- The configurations that were not able to converge will now have to be converged by hand. In order to do this, their \textit{.f05} will have to be edited, where different methods will be chosen for the calculation for each specific orbital. As there are multiple possible methods and combinations, this step can take up to a few weeks to complete.
-
- After eliminating all the convergence problems, the radiative transition rates will be calculated, by operating the transition operator on all the possible 1 hole - 1 hole configuration pair combinations. The same will follow for all the pairs of 1 hole - 2 holes configurations, in order to compute the auger transition rates. Finally, the process is repeated for the 2 holes - 2 holes configurations, for the radiative transitions of the auger-generated satellite states.
-
-
- Lastly, all the calculated transitions' widths will be summed in order to calculate each subshell's fluorescence yield (calculated by the sum of all radiative transition widths divided by the sum of all the radiative and non-radiative transition widths).
+% \section{Methodology}\todo{Take this out}
+% 
+% As mentioned before, in this thesis, atomic relaxation transitions where the ejected inner shell electron, responsible for the generated hole, was not sent to the continuum, but excited to an upper state.
+% 
+% In order to use \gls{MCDFGME}, since it is written in FORTRAN, there will be a multitude of input/output files, with the extension \textit{.f0X}. The most important file extensions are \textit{.f05}, the input file, where the calculation settings are indicated; \textit{.f06}, where the energy results will be displayed, among others, such as some matrix element overlaps, both important to evaluate the convergence.
+%  Other file extensions, such as \textit{.f09}, also store the final electrons' wavefunctions and can be quite useful for debugging processes, and for calculating other atomic parameters, such as shake probabilities, which will not be of relevance as of this thesis.
+% 
+%  An example of a normal atomic structure calculation for an excited Copper atom (which has a ground state configuration of $1s^2 2s^2 2p^6 3s^2 3p^6 3d^{10} 4s^1$) is as follows:
+% 
+%  One starts by choosing the excitation upper orbital, and by  writing in a text file all the possible 1 hole configurations from where the electron may have originated from. An example can be found in Annex~\ref{an:input}. This represents all the possible excited states where the electron is in the chosen orbital.
+%  
+%  The same process is now performed for a 2 hole configuration, where an additional ionization occurred. This represents the possible states after the occurrence of the Auger process, which is in competition with the radiative decay.
+% 
+%  Now, a \textit{bash} script, \textit{runMCDFEC.sh} is to be executed. Now, it will be possible to choose the atomic number of the element in study, the isotope mass, and, if one wishes so, to perform the calculations for an exotic atom, where, instead of electrons, other particles such as muons, negative hadrons and antiparticles can orbit the nucleus. 
+%  The script will calculate all the possible spin-orbit couplings and eigenvalues, and then finally apply the \gls{MCDFGME} method.
+% 
+%  Depending on the excitation orbital, there will be thousands to tens of thousands of possibilities for the final configuration, with this number increasing with the quantum number of angular momentum, $l$, of the orbital.
+%  
+%  However, not all the calculations performed will automatically converge. Each time, a few hundreds of computed states will fail convergence. In a file, generated for the compilation of the calculation results, these states will be missing the total system's energy, or will display a significant energy difference for the results obtained by using two different methods, summing and integrating.
+% 
+%  The configurations that were not able to converge will now have to be converged by hand. In order to do this, their \textit{.f05} will have to be edited, where different methods will be chosen for the calculation for each specific orbital. As there are multiple possible methods and combinations, this step can take up to a few weeks to complete.
+% 
+%  After eliminating all the convergence problems, the radiative transition rates will be calculated, by operating the transition operator on all the possible 1 hole - 1 hole configuration pair combinations. The same will follow for all the pairs of 1 hole - 2 holes configurations, in order to compute the auger transition rates. Finally, the process is repeated for the 2 holes - 2 holes configurations, for the radiative transitions of the auger-generated satellite states.
+% 
+% 
+%  Lastly, all the calculated transitions' widths will be summed in order to calculate each subshell's fluorescence yield (calculated by the sum of all radiative transition widths divided by the sum of all the radiative and non-radiative transition widths).
+% 

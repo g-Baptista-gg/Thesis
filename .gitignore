@@ -5,7 +5,7 @@
 
 # Ignore all template files…
 template.*
-template.pdf
+
 # …except template.tex
 !template.tex
 
@@ -395,3 +395,5 @@ $RECYCLE.BIN/
 **/Scripts
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,windows,linux,macos
+
+template.pdf
