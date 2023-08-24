@@ -5,6 +5,7 @@
 
 # Ignore all template files…
 template.*
+template.pdf
 # …except template.tex
 !template.tex
 
@@ -336,7 +337,8 @@ TSWLatexianTemp*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

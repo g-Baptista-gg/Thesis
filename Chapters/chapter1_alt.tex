@@ -214,7 +214,7 @@ The characteristic radiation from transitions that originated from these states 
 
 
 
-In terms of quantum mechanics, the properties of a system's change of state can be derived using perturbation theory, where a change in energy can be treated as perturbation, and takes into physical properties \sout{angular momentum}  conservation laws as basis for the selection rules.
+In terms of quantum mechanics, the properties of a system's change of state can be derived using perturbation theory, where a change in energy can be treated as perturbation, and takes into account the conservation laws physical properties, such as the angular momentum of the system as basis for the selection rules.
 
 The transition's radiation type can be of two main flavors, Electric, $E_k$, or Magnetic, $M_k$, with $k$ representing its multiplicity. These labels indicate which of the \gls{EMF} component had the strongest influence on the transition's occurrence.
 For both these types of transitions, the system's total angular momentum is allowed a change of $\Delta J = 0, \pm k$, and so does its projection, $M_J$. However, different transitions lead to different changes of parity in the system and to different selection rules.
@@ -273,15 +273,15 @@ The wavefuction capable of describing the whole system, $\Psi$, should be somewh
     u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|
 \end{equation}
 
-It is of high importance that the wavefunction basis set respects orthonormality. These are to be initialized as trial wavefunctions for the numerical method. 
+It is of high importance that the set of basis wavefunctions respects orthonormality. These are to be initialized as trial wavefunctions for the numerical method. 
 
 
-The main goal for this algorithm is to, as per the \gls{selfconsistency}, follow the variational principle and to minimize a functional, as a way of minimizing the system's energy. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to reach a solution that yields an energetic value as close to $E_0$ as possible, while always yielding $\ev**{H}{\Psi}\geq E_0$, should the calculation be correct.
+The main goal for this algorithm is to, as per the \gls{selfconsistency}, follow the variational principle with the goal of minimize a functional, as a way of reaching an energetic minimum. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of the trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to reach a solution that yields an energetic value as close as possible to $E_0$, while always yielding $\ev**{H}{\Psi}\geq E_0$, due to the numerical nature of the method.
 
-The computational method consists on starting with the previously mentioned trial wavefunctions, using them to calculate Hartree-Fock's potential through the HF equations.\todo{Finish the explanation}
+The computational method consists on starting with the previously mentioned trial wavefunctions and employing them in the Hartree-Fock's potential calculation through the \gls{HF} equations.\todo{Finish the explanation}
 
 
-In a very simplified way, the self-consistent Hartree-Fock computational method can be represented by the block diagram in Figure~\ref{fig:diagram}.
+In an over-simplistic scheme, the self-consistent Hartree-Fock computational method can be represented by the block diagram in Figure~\ref{fig:diagram}.
 
 
 \begin{figure}[h!]
@@ -320,16 +320,17 @@ In a very simplified way, the self-consistent Hartree-Fock computational method 
 
 \subsection{The Dirac Equation}
 
-\textit{Note: This section used the works in~\cite{Thaller1992,Beyer2016,Sakurai2020,Bethe1977} as reference.}
 
 
-It is no secret that Schrödinger's equation has some very considerable limitations. The fact that it does not account for the existence of the electron's spin and the lack of consideration of relativistic effects are some of the most impactful setbacks.
+While Schrödinger's equation may be one of the most significant and impactful equations in Modern Physics, it is also not free of its of limitations. The fact that it does not account for the existence of the electron's spin and the lack of consideration of relativistic effects are some of the most impactful setbacks. Consulting the works in~\cite{Thaller1992,Beyer2016,Sakurai2020,Bethe1977}, this work will follow an exploration of different approaches that followed in order to solve the aforementioned problem.
+
+
 %------------------------------------------------------------------------------
 
 
 
 
-Many scientists, such as Klein, Gordon and later Fock, had already conceived a relativistic correction to Schrödinger's equation, where the free-particle energy makes use of the relativistic momentum-energy relation \eqref{eq:EnMomRel}.
+Many scientists, such as Klein, Gordon and later Fock, had already conceived a relativistic correction to Schrödinger's equation, where the free-particle energy makes use of the relativistic momentum-energy relation,  as displayed in equation \eqref{eq:EnMomRel}.
 
 
  \begin{equation}
@@ -338,7 +339,7 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
  \end{equation}
 
 
- Which can be derived from the \gls{lorentzinvariance} \gls{MinkNorm} of the momentum \gls{fourvec}~\eqref{eq:4mom}.
+ This notable definition can be derived from the \gls{lorentzinvariance} scalar produced by \gls{MinkNorm} of the momentum \gls{fourvec}~\eqref{eq:4mom}.
 
 
  \begin{equation}
@@ -346,7 +347,7 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
     \label{eq:4mom}
 \end{equation}
 
- Now, inputting this new energy operator into Schrödinger's equation, yields the Klein-Gordon equation \eqref{eq:KG}, allowing for Schrödinger's equation to now be Lorentz-invariant.
+ Now, inputting this new energy operator into Schrödinger's equation, yields the Klein-Gordon equation~\eqref{eq:KG}, allowing for Schrödinger's equation to now be Lorentz-invariant (proof can be found in Strickland's book~\cite{Strickland}).
 
  \begin{equation}
     -\hbar^2 \pdv[2]{t} \vb*{\psi}=\qty(-c^2\hbar^2\laplacian + m^2c^4)\vb*{\psi}
@@ -355,14 +356,14 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
 
 
 
- This new approach was, however, still faulty, due to only describing spin 0 particles (e.g., some mesons), and making use of a second order derivative in the time-like component.
+ This new approach was, however, still limited, as it only described spin 0 particles (e.g., some mesons), and made use of a second order derivative in the time-like component.\todo{Try to explain why this might be a problem}
 
- That way, a new equation was developed by Paul Dirac, in 1928~\cite{Dirac}, one taking now into account not the classical 3 dimensional space components, but the relativistic four components.
-
-
+Came 1928 and a new equation was developed by Paul Dirac~\cite{Dirac}, one taking now into account not the classical 3 dimensional space components, but the relativistic four components.
 
 
- Dirac took a spin \todo{eheheheh} at rewriting the energy-momentum relation, ending up with an equivalent equation~\eqref{eq:diracEnergy}, involving $4\times 4$ matrices, due to the 4 relativistic dimensions at play, and incorporating spins into the equation by making use of the now famous Pauli\todo{spin?} matrices~\eqref{eq:pauli}.
+
+
+ Dirac started by rewriting the energy-momentum relation, ending up with an equivalent equation~\eqref{eq:diracEnergy}, employing $4\times 4$ matrices, due to the 4 relativistic dimensions at play, and incorporating spins into the equation by making use of the Pauli matrices~\eqref{eq:pauli}.
 
  \begin{equation}
     E=c\vb*{\alpha}\cdot \vb*{p}+{\beta} mc^2,\quad \vb*{\alpha}=\qty(\alpha_1,\alpha_2,\alpha_3)
@@ -374,13 +375,13 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
     \sigma_1&=\mqty(0&1\\1&0) & \sigma_2&=\mqty(0&-i\\i&0)& \sigma_3&=\mqty(1&0\\0&-1)\label{eq:pauli}
  \end{align}
 
- In order to fully comprehend this shift of notation, one should equate the square of the two equations, \eqref{eq:EnMomRel} and \eqref{eq:diracEnergy}, and confirm if logic still stands.
+ In order to fully comprehend this shift of notation, one should equate the square of the two equations, \eqref{eq:EnMomRel} and~\eqref{eq:diracEnergy}, and confirm its validity.
 
  \begin{equation}
     c^2 \vb*{p}^2 + m^2c^4 = c^2\vb*{\alpha}^2\vb*{p}^2+2 m c^3 \vb*{\alpha}\cdot \vb*{p} \cdot \beta + \beta^2 m^2 c^4
  \end{equation}
 
- In order for this equation to make sense, the following conditions must be true (which in fact, they are):
+ In order for this equation to make sense, the following conditions must be true \sout{(which in fact, they are)}: \todo{do the demonstration, dummy}
 
 \begin{gather}
     \begin{cases}
@@ -391,14 +392,14 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
 \end{gather}
 
 
-With all the previous considerations taken into account, one can now construct Dirac's free-particle equation\eqref{eq:DiracEq}:
+Taking the previous considerations into account, one can now construct Dirac's free-particle equation~\eqref{eq:DiracEq}:
 
 \begin{equation}
     i\hbar \pdv{t}\vb*{\psi}=\qty( c\vb*{\alpha}\cdot \vb*{p} +\beta m c^2)\vb*{\psi}=\mqty(mc^2 I_2& -i\hbar c \vb*{\sigma}\cdot \grad\\-i\hbar c \vb*{\sigma}\cdot \grad & -mc^2 I_2)\cdot \mqty(\psi_1\\\vdots\\\psi_4)
     \label{eq:DiracEq}
 \end{equation}
 
-This equation, however, as mentioned above, can only describe a single particle present in a field-free region. In order to account for the existence of a field, such as the electromagnetic field, derived from the four-potential $A^\mu$, composed by the electric scalar potential field, $A^0=\phi$, and the vector potential, $(A^1,A^2,A^3)=\vb*{A}$, the following change to the momentum four-vector must be made:
+This equation, however, as mentioned above, can only describe a single particle present in a field-free region. In order to account for the existence of a field, such as the electromagnetic field, derived from the four-potential $A^\mu$, composed by the electric scalar potential field, $A^0=\phi$, and the vector potential, $(A^1,A^2,A^3)=\vb*{A}$, the following change on the momentum four-vector must be made:
 
 
 \begin{equation}
@@ -412,19 +413,19 @@ The Hamiltonian can now be rewritten as to account for the presence of the elect
     \label{eq:DiracEqField}
 \end{equation}
 
-For a central fixed potential, as is the one generated by the nuclear charge (assuming Born-Oppenheimer's approximation), the 3 space-like components from the four-potential are null, and the time-like component, $\phi=\dfrac{Z e}{r}$. The Hamiltonian gains now a more recognizable form:
+For a central fixed potential, as is the one generated by the nuclear charge, the 3 space-like components from the four-potential are null, and the time-like component, $\phi=\dfrac{Z e}{r}$. The Hamiltonian gains now a more recognizable form:
 
 \begin{equation}
     H_D=-\frac{e^2 Z}{r} + \beta m c^2 + \vb*{\alpha}\cdot\vb*{p}c
     \label{eq:diracHam}
 \end{equation}
 
-Something very interesting about Dirac's equation is the fact that it does not yield a single solution, but in fact, two: the large component (positive energy values), for particles, and the small component (negative energy values), for antiparticles.
+A very interesting fact about Dirac's equation is that it yields, in fact, two sets of solutions: the large component (positive energy values), for particles, and the small component (negative energy values), for antiparticles.
 
 \subsubsection{The Dirac-Breit Equation}
 
 Once again, when considering a system composed of many bodies, one must consider all the present interactions, namely, the electron-electron repulsion in an atom.
- Breit, in 1929, had created a relativistic approach to treat the electron-electron interactions, consisting on a set of equations building upon the classical non-relativistic Hamiltonian from equation \eqref{eq:nonRelHam}, which can be consulted in Appendix \ref{ap:Breit}.
+ Breit, in 1929, had created a relativistic approach to treat the electron-electron interactions, consisting on a set of equations building upon the classical non-relativistic Hamiltonian from equation~\eqref{eq:nonRelHam}, which can be consulted in Appendix~\ref{ap:Breit}.
   Breit's equations are able to account for angular momenta couplings and estimate level energy splittings, the change of a particle's apparent mass as a function of velocity, and even include the interaction of an applied external magnetic field~\cite{Bethe1977}.
 
   It is quite obvious Breit's equations introduce a great complexity in the search of the new Hamiltonian's eigenfunctions. Nonetheless, when trying to include an approximation of Breit's considerations into Dirac's equation, one must add the following operator to the one present in equation \eqref{eq:diracHam}:
@@ -435,6 +436,80 @@ Once again, when considering a system composed of many bodies, one must consider
   \end{equation}
 
 This set of terms will account for the fact that Coulomb interactions, mediated by the electric field, and therefore, \gls{virtual photons}, cannot occur at instantaneous velocities, but at the speed of light.
+
+
+\section{\gls{QED} considerations}\todo{Falar aqui sobre as contribuições. Não tem que ser extensivo}
+
+
+\textcolor{red}{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut justo justo. Cras pulvinar massa sollicitudin ligula faucibus, in vulputate magna viverra. Nulla risus ante, maximus ut nunc sit amet, condimentum convallis mi. Phasellus et mi aliquet, ornare sapien egestas, vehicula orci. Donec ac massa tempus, iaculis tortor vitae, tempus tortor. Donec nec justo eros. Sed mauris purus, facilisis eu tempus quis, mattis et erat. Sed et congue metus, in venenatis nibh. Nullam ipsum ex, scelerisque non nunc sit amet, ultrices commodo felis. Proin sodales turpis nulla, quis tincidunt leo auctor id. Ut ac nulla quis felis molestie ullamcorper. Nulla tristique dui velit, sit amet rutrum libero dignissim id.}
+
+\textcolor{red}{In hac habitasse platea dictumst. Vivamus laoreet neque odio, vitae faucibus massa eleifend sit amet. Curabitur tempor facilisis velit, eget blandit nisi rutrum at. Morbi a massa a lacus lobortis ultricies eget vel enim. Ut augue nisl, tristique eget luctus eget, scelerisque vitae risus. Aliquam in felis et metus euismod porttitor. Nullam nec ligula mi. Aliquam non vulputate sem. Proin ut leo eget ex bibendum venenatis ac vel sapien. Cras felis eros, cursus quis dolor posuere, scelerisque tempus orci. In nec quam in dui efficitur aliquam vitae sit amet dui. Cras laoreet tellus vel risus molestie mattis. Nulla facilisi. Duis rutrum mauris vitae malesuada consequat.}
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[]
+        \draw[-Stealth] (0,2.3) -- (0,10) node[anchor=south east]{E};
+        \draw (0,0) -- (0,2);
+        \draw (-0.25,1.75) -- (0.25,2.25);
+        \draw (-0.25,2.05) -- (0.25,2.55);
+
+        \draw (1,1)node[anchor=east]{n=1} -- (2.5,1);
+        \draw (1,4)node[anchor=east]{n=2} -- (2.5,4);
+        \draw (1,6)node[anchor=east]{n=3} -- (2.5,6);
+        \draw (1,7) -- (2.5,7);
+        \draw (1,7.5) -- (2.5,7.5);
+        \draw (1,7.75) -- (2.5,7.75);
+        \draw (1,7.75+0.125) -- (2.5,7.75+0.125);
+        \draw (1,7.75+0.125+0.125/2) -- (2.5,7.75+0.125+0.125/2);
+        \draw[fill=black] (1,7.75+0.125+0.125/2) rectangle (2.5,7.75+0.125+0.25);
+
+
+
+        \draw (5,0) -- (6.5,0);
+        \draw[dashed] (2.5,1) -- (5,0);
+        \node at (4/2+5.5/2+1,0)[anchor=south] {$1S_{1/2}$};
+        \draw (5,3.8) --(6.5,3.8);
+        \draw[dashed] (2.5,4) -- (5,3.8);
+        \draw (5,3.2) --(6.5,3.2);
+        \draw[dashed] (2.5,4) -- (5,3.2);
+        \node at (3+5.5/2,3.2)[anchor=north] {$2S_{1/2},\ 2P_{1/2}$};
+        \node at (3+5.5/2,3.8)[anchor=south] {$2P_{3/2}$};
+        \draw (5,5.9) -- (6.5,5.9);
+        \draw[dashed] (2.5,6) -- (3,5.9);
+        \draw (5,5.8) -- (6.5,5.8);
+        \draw[dashed] (2.5,6) -- (5,5.8);
+        \draw (5,5.65) -- (6.5,5.65);
+        \draw[dashed] (2.5,6) -- (5,5.65);
+        \node at (3+5.5/2,5.65) [anchor=north] {$3S_{1/2},\ 3P_{1/2}$} ;
+        \draw (4.75,6.2)node[anchor=south]{$3P_{3/2}$} -- (5.5,5.8);
+        \draw (6.75,6.2)node[anchor=south]{$3D_{3/2}$} -- (6,5.8);
+        \draw (3+5.5/2,5.9) -- (3+5.5/2,6.5)node[anchor=south]{$3D_{5/2}$};
+
+        \draw[dashed] (6.5,0) -- (9,0.3);
+        \draw (9,0.3) -- (10.5,0.3);
+        \node at (7/2+8.5/2+2,0.3)[anchor=south] {$1S_{1/2}$};
+        \draw (9,3.2) -- (10.5,3.2);
+        \node at (9/2+10.5/2,3.2)[anchor=north] {$2P_{1/2}$};
+        \draw (9,3.3) -- (10.5,3.3);
+        \draw[dashed] (6.5,3.2) --(9,3.3);
+        \draw[dashed] (6.5,3.2) --(9,3.2);
+        \node at (9/2+10.5/2,3.8)[anchor=south] {$2P_{3/2}$};
+        \draw (9,3.8) -- (10.5,3.8);
+        \draw[dashed] (6.5,3.8) --(9,3.8);
+        \draw (10.0,3.3) -- (10.75,3.7)node[anchor=west] {$2P_{3/2}$};
+
+
+
+
+       % \draw (8.75,2.8)\node [anchor=north] {} --  (9.5,3.2);
+
+
+    \end{tikzpicture}
+    \caption{Comparison of Hydrogen level diagrams. Adapted from \cite{GSI_pres}}\label{fig:split}
+\end{figure}
+
+
 
 \subsection{The \gls{MCDF} Method}\todo{Ler bem o manual e explicar bem o método e todas as coisas diferentes que se podem fazer}
 
@@ -499,4 +574,3 @@ In order to use \gls{MCDFGME}, since it is written in FORTRAN, there will be a m
 
 
  Lastly, all the calculated transitions' widths will be summed in order to calculate each subshell's fluorescence yield (calculated by the sum of all radiative transition widths divided by the sum of all the radiative and non-radiative transition widths).
-
