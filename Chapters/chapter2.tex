@@ -11,14 +11,59 @@
 
 \chapter{Atomic Structure Calculations}\label{cha:atom_calc}
 
-In this chapter, the procedure that follows a standard atomic structure calculation will be explained in detail.
+In this chapter, the procedure that follows a standard atomic structure calculation will be discussed and explained in detail. Topics ranging from the usage of the \gls{MCDFGME} code to compute  quantities such as energy levels, orbital wavefunctions and transition rates, to the manner in which these parameters can be used in order to simulate a theoretical spectrum will be explored. All the information present in this chapter was obtained after a thorough study of \gls{MCDFGME}'s manual~\cite{Desclaux_Indelicato_2019}.
 
 
-\section{The MCDFGME interface}
+\section{The \gls{MCDFGME} code's capabilities}
+As previously stated, \gls{MCDFGME} is a program that allows for not only solving the many-body problem for an atomic system while making the proper \gls{QED} energy corrections, but also for the computation of a great deal of atomic parameters. Consulting~\cite{mcdfWebsite}, one can see that these include, but are not limited to:
+
+\begin{itemize}
+    \item Energy level calculations.
+    \item Multipole radiative transition probabilities.
+    \item Auger transition probabilities.
+    \item Photoionization cross-sections.
+    \item Electronic impact excitation cross-sections.
+    \item Orbital wavefunction overlaps between same and different atomic systems.
+\end{itemize}
+\todo{meter mais cenas}
+
+% Quoting from the manual~\cite{Desclaux_Indelicato_2019}, these include:
+% 
+% \begin{itemize}
+    % \item Total energy of a given state
+    % \item Radiative and Auger transition probabilities
+    % \item Photoionization cross-sections
+    % \item Hyperfine structure constants
+    % \item Landé factor
+    % \item Electron impact excitation cross-sections
+    % \item Stark effect
+    % \item Parity non-conserving amplitude,
+    % \item Magnetic part of the g 2 correction for antiprotons,
+    % \item Scalar product of wave functions,
+    % \item Shiff moment
+    % \item Overlaps of orbitals between a n-electron and a n 1-electron state for Shake-off calculations
+% \end{itemize}
+%  
+
+
+\section{The atomic system at study}
+
+Before proceding with the explanation behind every step of the calculations performed, a previous discussion on what the objective for the following calculations are should be had.
+\subsection{The system at study}
+
+The main purpose of this thesis is that of simulating a theoretical spectrum for Copper's emission lines when subjected to a near ionization threshold x-ray source.
+
+At this energy range, two main processes will be responsible for an electron moving out a core-shell: Resonant photoexcitation, and ionization.
+
+While the simulation of the theoretical spectra for ionized Copper would be quite straightforward (due to the low shake probabilities at near ionization threshold energies, transitions for satellite states were not considered), the more extensive calculation is that of the resonant photoexcitation.
+
+In order to fulfill the aim of simulating the theoretical spectra for this last phenomenon, multiple atomic structure calculations were computed for the first excited Copper configurations.
 
 
 \section{Level Calculations}
 
+The first step needed to be performed in order to simulate theoretical spectra is the calculation of the level structure for all given configurations.
+\todo{Breit can be used as self consistent or perturbative}
 \section{Transition computations}
 \subsection{Diagram transitions}
 \subsection{Auger transitions}

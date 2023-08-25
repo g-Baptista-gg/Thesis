@@ -1,2 +1,6 @@
 wavefunction
 wavefunctions
+hyperfine
+Hyperfine
+Landé
+photoexcitation
