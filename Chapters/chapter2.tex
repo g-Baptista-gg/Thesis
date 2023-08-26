@@ -48,8 +48,8 @@ As previously stated, \gls{MCDFGME} is a program that allows for not only solvin
 
 \section{The atomic system at study}
 
-Before proceding with the explanation behind every step of the calculations performed, a previous discussion on what the objective for the following calculations are should be had.
-\subsection{The system at study}
+Before proceeding with the explanation behind every step of the calculations performed, a previous discussion on the objective of the following calculations should be had.
+
 
 The main purpose of this thesis is that of simulating a theoretical spectrum for Copper's emission lines when subjected to a near ionization threshold x-ray source.
 
@@ -57,14 +57,56 @@ At this energy range, two main processes will be responsible for an electron mov
 
 While the simulation of the theoretical spectra for ionized Copper would be quite straightforward (due to the low shake probabilities at near ionization threshold energies, transitions for satellite states were not considered), the more extensive calculation is that of the resonant photoexcitation.
 
-In order to fulfill the aim of simulating the theoretical spectra for this last phenomenon, multiple atomic structure calculations were computed for the first excited state configurations for Copper.
+In order to fulfill the aim of simulating the theoretical spectra for this last phenomenon, multiple atomic structure calculations were computed for many of the excited state configurations for Copper.
+
+In total, and in addition to ionized Copper, 18 different standalone calculations were performed for should the atomic system have gone through the process of an excitation of any one of the constituent electrons to the following orbitals:
+
+\begin{itemize}
+    \item 4s, 4p, 4d, 4f
+    \item 5s, 5p, 5d, 5f, 5g
+    \item 6s, 6p, 6d, 6f, 6g, 6h
+    \item 7p, 8p, 9p
+\end{itemize}
 
 
+\subsection{Selecting all possible orbital configurations}
+When performing an atomic structure calculation using the \gls{MCDFGME} code, a configuration needs to be given. Therefore, there is a need to manually
+In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's configuration is needed. This way, for each case, all the possible one-hole and two-holes configurations need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{ann:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
 
 
 \section{Level Calculations}
+Now that all configurations have been selected, the calculations can proceed.
 
 The first step needed to be performed in order to simulate theoretical spectra is the calculation of the level structure for all given configurations.
+
+This, however, is no simple task. Besides the given configuration, an atomic level is described by two other quantum numbers.
+
+\subsection{The level manifold}
+
+
+
+
+Prior to proceeding with the discussion, it is important to establish some of the notation that will be used throughout this thesis. In this work, an atomic level will be described by three sets of quantum numbers. These will be the parameters that will influence the system's energy level diagram.
+
+\paragraph{Hole orbital labels}
+
+
+$\qty(n\ l_j)$ - This set can be composed of one or more labels indicators of the subshell where holes are present.
+For demonstrative purposes, assuming neutral Copper's ground state configuration as a starting point, before any hole-generating processes, to be $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1$, certain configurations can be obtained through the proper usage of the aforementioned quantum number set:
+
+\begin{itemize}
+    \item $1\text{s}^1\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1  \rightarrow \qty(1\text{s})$
+    \item $1\text{s}^1\ 2\text{s}^1\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1 \rightarrow \qty(1\text{s},2\text{s})$
+\end{itemize}
+
+\paragraph{Total angular momentum number}
+
+
+$J$ asdas
+
+
+
+
 \todo{Breit can be used as self consistent or perturbative}
 \section{Transition computations}
 \subsection{Diagram transitions}
