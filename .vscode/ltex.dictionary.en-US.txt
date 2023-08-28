@@ -4,3 +4,4 @@ hyperfine
 Hyperfine
 Landé
 photoexcitation
+Zeeman
