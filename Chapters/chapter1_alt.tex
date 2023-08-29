@@ -246,7 +246,7 @@ Essentially, and in atomic units:
 
 \begin{equation}
     \begin{gathered}
-        \underbrace{\sum_i^N \overbrace{ \dfrac{1}{2}\laplacian_i}^{E_1}  \overbrace{-\frac{Z}{r_i}}^{E_2}}_{\text{Individual Hamiltonian}}  + \underbrace{\sum_{i<j}^{j}\overbrace{\dfrac{1}{r_{ij}}}^{E_3}}_{\text{Pair repulsion}}\\
+        \underbrace{\sum_i^N \overbrace{ \dfrac{1}{2}\laplacian_i}^{E_1}  \overbrace{-\frac{Z}{r_i}}^{E_2}}_{\text{Individual Hamiltonian}}  + \underbrace{\sum_{i<j}^{j}\overbrace{\dfrac{1}{r_{ij}}}^{E_3}}_{\text{Pair repulsion}},\\
         E_1\rightarrow\text{Momentum}\quad E_2\rightarrow\text{e$^-$nuc. Coulomb attraction}\quad E_3\rightarrow\text{e$^-$e$^-$ Coulomb repulsion}
     \end{gathered}
     \label{eq:nonRelHam}
@@ -261,7 +261,7 @@ This numerical method is one of the staple and most enduring procedures for solv
 Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field's \gls{selfconsistency}. In this approach, when studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one related to the electron's spin, $\chi$, as to be able to account for Pauli's exclusion principle and, if so desired, relativistic effects.
 
 \begin{equation}
-    u=\psi\chi
+    u=\psi\chi,
 \end{equation}
 
 The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle\todo{Explain antisymmetry and put it in the glossary}, due to the electron's fermionic nature. In order to achieve this, $\Psi$ is to be composed of a Slater determinant:\todo{Explain in the glossary}
@@ -270,7 +270,7 @@ The wavefuction capable of describing the whole system, $\Psi$, should be somewh
     \Psi=\frac{1}{\sqrt{N!}}\mqty| u_1(x_1) & u_2(x_1) & \cdots & u_N(x_1)\\
     u_1(x_2) & u_2(x_2) & \cdots & u_N(x_2)\\
     \vdots & \vdots& \ddots&\vdots\\
-    u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|
+    u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|,
 \end{equation}
 
 It is of high importance that the set of basis wavefunctions respects orthonormality. These are to be initialized as trial wavefunctions for the numerical method. 
@@ -334,7 +334,7 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
 
 
  \begin{equation}
-    E=\sqrt{c^2\vb*{p}^2+m^2c^4}
+    E=\sqrt{c^2\vb*{p}^2+m^2c^4},
     \label{eq:EnMomRel}
  \end{equation}
 
@@ -343,14 +343,14 @@ Many scientists, such as Klein, Gordon and later Fock, had already conceived a r
 
 
  \begin{equation}
-    p^\mu p_\mu = m^2c^2\Leftrightarrow\dfrac{E^2}{c^2}-\vb*{p}^2=m^2c^2 \Leftrightarrow  \dfrac{E^2}{c^2}= \vb*{p}^2 +m^2c^2
+    p^\mu p_\mu = m^2c^2\Leftrightarrow\dfrac{E^2}{c^2}-\vb*{p}^2=m^2c^2 \Leftrightarrow  \dfrac{E^2}{c^2}= \vb*{p}^2 +m^2c^2,
     \label{eq:4mom}
 \end{equation}
 
  Now, inputting this new energy operator into Schrödinger's equation, yields the Klein-Gordon equation~\eqref{eq:KG}, allowing for Schrödinger's equation to now be Lorentz-invariant (proof can be found in Strickland's book~\cite{Strickland}).
 
  \begin{equation}
-    -\hbar^2 \pdv[2]{t} \vb*{\psi}=\qty(-c^2\hbar^2\laplacian + m^2c^4)\vb*{\psi}
+    -\hbar^2 \pdv[2]{t} \vb*{\psi}=\qty(-c^2\hbar^2\laplacian + m^2c^4)\vb*{\psi},
     \label{eq:KG}
 \end{equation}
 
@@ -366,19 +366,19 @@ Came 1928 and a new equation was developed by Paul Dirac~\cite{Dirac}, one takin
  Dirac started by rewriting the energy-momentum relation, ending up with an equivalent equation~\eqref{eq:diracEnergy}, employing $4\times 4$ matrices, due to the 4 relativistic dimensions at play, and incorporating spins into the equation by making use of the Pauli matrices~\eqref{eq:pauli}.
 
  \begin{equation}
-    E=c\vb*{\alpha}\cdot \vb*{p}+{\beta} mc^2,\quad \vb*{\alpha}=\qty(\alpha_1,\alpha_2,\alpha_3)
+    E=c\vb*{\alpha}\cdot \vb*{p}+{\beta} mc^2,\quad \vb*{\alpha}=\qty(\alpha_1,\alpha_2,\alpha_3),
     \label{eq:diracEnergy}
  \end{equation}
 
  \begin{align}
-    \alpha_i&=\mqty(0 & {\sigma}_i\\ {\sigma}_i&0) & {\beta}&=\mqty(I_2 & 0 \\ 0 &-I_2) &I_2&=\mqty(1&0\\0&1)\\
-    \sigma_1&=\mqty(0&1\\1&0) & \sigma_2&=\mqty(0&-i\\i&0)& \sigma_3&=\mqty(1&0\\0&-1)\label{eq:pauli}
+    \alpha_i&=\mqty(0 & {\sigma}_i\\ {\sigma}_i&0) & {\beta}&=\mqty(I_2 & 0 \\ 0 &-I_2) &I_2&=\mqty(1&0\\0&1),\\
+    \sigma_1&=\mqty(0&1\\1&0) & \sigma_2&=\mqty(0&-i\\i&0)& \sigma_3&=\mqty(1&0\\0&-1),\label{eq:pauli}
  \end{align}
 
  In order to fully comprehend this shift of notation, one should equate the square of the two equations, \eqref{eq:EnMomRel} and~\eqref{eq:diracEnergy}, and confirm its validity.
 
  \begin{equation}
-    c^2 \vb*{p}^2 + m^2c^4 = c^2\vb*{\alpha}^2\vb*{p}^2+2 m c^3 \vb*{\alpha}\cdot \vb*{p} \cdot \beta + \beta^2 m^2 c^4
+    c^2 \vb*{p}^2 + m^2c^4 = c^2\vb*{\alpha}^2\vb*{p}^2+2 m c^3 \vb*{\alpha}\cdot \vb*{p} \cdot \beta + \beta^2 m^2 c^4,
  \end{equation}
 
  In order for this equation to make sense, the following conditions must be true \sout{(which in fact, they are)}: \todo{do the demonstration, dummy}
@@ -388,14 +388,14 @@ Came 1928 and a new equation was developed by Paul Dirac~\cite{Dirac}, one takin
         c^2\vb*{p}^2=c^2\vb*{\alpha}^2 p^2  &\Leftrightarrow \vb*{\alpha}^2=1\\
         0=2mc^3  p \vb*{\alpha} \beta &\Leftrightarrow \vb*{\alpha} \beta =0\\
         m^2c^4=\beta^2 m^2c^4     &\Leftrightarrow \beta^2 =1
-    \end{cases}
+    \end{cases},
 \end{gather}
 
 
 Taking the previous considerations into account, one can now construct Dirac's free-particle equation~\eqref{eq:DiracEq}:
 
 \begin{equation}
-    i\hbar \pdv{t}\vb*{\psi}=\qty( c\vb*{\alpha}\cdot \vb*{p} +\beta m c^2)\vb*{\psi}=\mqty(mc^2 I_2& -i\hbar c \vb*{\sigma}\cdot \grad\\-i\hbar c \vb*{\sigma}\cdot \grad & -mc^2 I_2)\cdot \mqty(\psi_1\\\vdots\\\psi_4)
+    i\hbar \pdv{t}\vb*{\psi}=\qty( c\vb*{\alpha}\cdot \vb*{p} +\beta m c^2)\vb*{\psi}=\mqty(mc^2 I_2& -i\hbar c \vb*{\sigma}\cdot \grad\\-i\hbar c \vb*{\sigma}\cdot \grad & -mc^2 I_2)\cdot \mqty(\psi_1\\\vdots\\\psi_4),
     \label{eq:DiracEq}
 \end{equation}
 
@@ -403,20 +403,20 @@ This equation, however, as mentioned above, can only describe a single particle 
 
 
 \begin{equation}
-    p^\mu \rightarrow p^\mu - e A^\mu,\quad A^\mu = \qty(\phi,\vb*{A})
+    p^\mu \rightarrow p^\mu - e A^\mu,\quad A^\mu = \qty(\phi,\vb*{A}),
 \end{equation}
 
 The Hamiltonian can now be rewritten as to account for the presence of the electromagnetic field~\eqref{eq:DiracEqField}. This way it is possible to include, for example, the electron-nucleus Coulomb attraction.
 
 \begin{equation}
-    H_D=-e\phi + \beta m c^2 + \vb*{\alpha}\qty(c\vb*{p}+e\vb*{A})
+    H_D=-e\phi + \beta m c^2 + \vb*{\alpha}\qty(c\vb*{p}+e\vb*{A}),
     \label{eq:DiracEqField}
 \end{equation}
 
 For a central fixed potential, as is the one generated by the nuclear charge, the 3 space-like components from the four-potential are null, and the time-like component, $\phi=\dfrac{Z e}{r}$. The Hamiltonian gains now a more recognizable form:
 
 \begin{equation}
-    H_D=-\frac{e^2 Z}{r} + \beta m c^2 + \vb*{\alpha}\cdot\vb*{p}c
+    H_D=-\frac{e^2 Z}{r} + \beta m c^2 + \vb*{\alpha}\cdot\vb*{p}c,
     \label{eq:diracHam}
 \end{equation}
 
@@ -431,7 +431,7 @@ Once again, when considering a system composed of many bodies, one must consider
   It is quite obvious Breit's equations introduce a great complexity in the search of the new Hamiltonian's eigenfunctions. Nonetheless, when trying to include an approximation of Breit's considerations into Dirac's equation, one must add the following operator to the one present in equation \eqref{eq:diracHam}:
 
   \begin{equation}
-    H_B = \sum_{i>j}\frac{e^2}{r_{ij}} - e^2\qty(\frac{\vb*{\alpha}_i\vb*{\alpha}_j}{r_{ij}}+\frac{\qty(\vb*{\alpha}_i \grad_i)\qty(\vb*{\alpha}_j \grad_j)r_{ij}}{2})  
+    H_B = \sum_{i>j}\frac{e^2}{r_{ij}} - e^2\qty(\frac{\vb*{\alpha}_i\vb*{\alpha}_j}{r_{ij}}+\frac{\qty(\vb*{\alpha}_i \grad_i)\qty(\vb*{\alpha}_j \grad_j)r_{ij}}{2})  ,
     \label{eq:BreitHam}
   \end{equation}
 

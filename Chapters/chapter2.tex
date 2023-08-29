@@ -142,14 +142,7 @@ As an example, let's take that of Copper that went through the excitation proces
     \end{tabular}
 \end{table}
 
-This splitting of quantum numbers for a given configuration gives origin to the level manifold (Figure~\ref{fig:manifold}), reason why, even for a simple calculation, hundreds to thousands of levels need to be calculated. It is also of note that, for a give Total angular momentum value, $J$, there are $2\times J+1$ states associated to it due to the angular momentum projection. In the presence of an external \gls{EMF}, the hyperfine level structure would be observed, due to Zeeman and Stark's effects. However, for the purpose of this thesis, no external field was considered, and a $2J+1$ degeneracy was taken into account in the following calculations.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{Chapters/Figures/Chapter2/1s_0_alt.pdf}
-    \caption{Splitting of quantum numbers for a given configuration.}
-    \label{fig:manifold}
-\end{figure}
+This splitting of quantum numbers for a given configuration gives origin to the level manifold (Figure~\ref{fig:manifold}), reason why, even for a simple calculation, hundreds to thousands of levels need to be calculated. It is also of note that, for a given Total angular momentum value, $J$, there are $2J+1$ states associated to it due to the angular momentum projection. In the presence of an external \gls{EMF}, the hyperfine level structure would be observed, due to Zeeman and Stark's effects. However, for the purpose of this thesis, no external field was considered, and calculations were only done for the maximum total angular momentum projection value, with a $2J+1$ degeneracy taken into account in the following calculations.
 
 \begin{figure}[h!]
     \centering
@@ -169,7 +162,7 @@ This splitting of quantum numbers for a given configuration gives origin to the 
 
             $\sfrac{-1}{2},\ \sfrac{1}{2}$
             };
-        \node at (4.75,-4){$m_J =$};
+        \node at (4.75,-4.15){$m_J =$};
         \draw (2,-2.5) -- (2,-3.25)node [anchor=north, text centered, align=center, text width=2cm]{
             $\sfrac{-5}{2},\ \sfrac{5}{2}$
             
@@ -177,47 +170,89 @@ This splitting of quantum numbers for a given configuration gives origin to the 
 
             $\sfrac{-1}{2},\ \sfrac{1}{2}$
             };
-        \node at (0.75,-4){$m_J =$};
+        \node at (0.75,-4.15){$m_J =$};
         \draw (-2,-2.5) -- (-2,-3.5)node [anchor=north, text centered, align=center, text width=2cm]{
             $\sfrac{-3}{2},\ \sfrac{3}{2}$
             
             $\sfrac{-1}{2},\ \sfrac{1}{2}$
             };
-        \node at (-3.25,-4){$m_J =$};
+        \node at (-3.25,-4.15){$m_J =$};
         \draw (-6,-2.5) -- (-6,-3.75)node [anchor=north, text centered, align=center, text width=2cm]{
             $\sfrac{-1}{2},\ \sfrac{1}{2}$
             };
-        \node at (-7.25,-4){$m_J =$};
+        \node at (-7.25,-4.15){$m_J =$};
         \node[white] at (7.25,-4){$m_J =$};
 
-        \node at (-6,-6) {$6+7+3+1= 17$ levels};
-        \node at (4,-6) {$6\times 2+7\times 4+3\times6+1\times 8=66$ states};
+        \node at (-6,-7) {$6+7+3+1= 17$ levels};
+        \node at (4,-7) {$6\times 2+7\times 4+3\times6+1\times 8=66$ states};
+        \draw (6,-5) -- (6,-6)node[anchor=north]{$\epsilon_{\text{max}=1}$};
+        \draw (2,-4.75) -- (2,-6)node[anchor=north]{$\epsilon_{\text{max}=3}$};
+        \draw (-6,-4.3) -- (-6,-6)node[anchor=north]{$\epsilon_{\text{max}=6}$};
+        \draw (-2,-4.6) -- (-2,-6)node[anchor=north]{$\epsilon_{\text{max}=7}$};
     \end{tikzpicture}
+    \caption{Splitting of quantum numbers for a given configuration.}
+    \label{fig:manifold}
 \end{figure}
 
+In conclusion, an atomic level can be defined by the set of these three quantum numbers. In the notation used throughout this thesis, a level will be identified by:
 
-associatedas
-s
-s
-s
-s
-s
-s
-s
+\begin{equation}
+    i\equiv \qty[(n\ l_j)_i;\ J_i;\ \epsilon_i],
+\end{equation}
+
+And the energy of the level:
+
+\begin{equation}
+    E_i\equiv E \qty[(n\ l_j)_i;\ J_i;\ \epsilon_i],
+\end{equation}
 
 
-s
-s
 
-s
-
+\subsection{Level calculation with \gls{MCDFGME}}
+\todo{Mention that the program works by the means of an input f05 file}
 \todo{Breit can be used as self consistent or perturbative}
+\todo{Talk about Lorentz and Coulomb gauges}
+
+A typical level calculation begins with the formating of the input \verb|.f05| file. This file contains the necessary information and instructions the program needs for the computation that follows when the executable \verb|mcdfgme2019.exe| is called.
+
+The input file has a certain input structure in which certain calculation parameters are defined. A previously tailored template input file (Annex~\ref{an:first_cycle}) is used, where, by default, the full Breit interaction is considered, with the magnetic and retardation parts, as well as vacuum polarization  included in the self-consistent process. Retardation is also applied to Lorentz's and Coulomb's gauges.
+
+The template is now formatted in order to perform the calculation for the desired level. The element's atomic number and the electron configuration are selected with the former having the same format as in Annex~\ref{an:confs}. The double of the value of the  total angular momentum is then indicated (as not to work with non-integer values) and so is the Lagrange multiplier/eigenvalue.
+
+There are many other parameters to chose in order to have the \verb|.f05| ready for the computation. These parameters, however, are not always the same, since occasionally different methods will have to be employed in order to reach convergence. Before these methods are discussed, it is necessary to provide an explanation as to how to evaluate the numerical convergence of the calculation:
+
+\subsubsection{Evaluating the convergence}
+After launching the \verb|mcdfgme2019.exe| executable, the computation will start, generating an output file with the \verb|.f06| extension, where the output will be written while the program is actively running.
+
+One of the convergence benchmarks can already be evaluated while the calculation is being processed. Actively monitoring the output file with, as an example, the \verb|UNIX| command \verb|tail|, one can observe some output from the self-consistent cycles. Should the numerical method not be reaching proper convergence, some warnings concerning sudden shifts in the wavefunction derivative may be displayed.
+
+The calculation can also be aborted due to a numerical error. In this case, if the error occurred while running calculations for a certain orbital(s), this/these will be displayed on the error output. 
+
+The three other parameters used when evaluating if the convergence was successful can be checked only after the calculation is over:
+
+\begin{itemize}
+    \item Each cycle, the level energy is calculated through two different methods. These two values should be consulted for the last cycle and the absolute energy difference should be below a certain stipulated benchmark value ($1\ \si{\electronvolt}$).
+\end{itemize}
 
 
-\subsubsection{Computing energy levels with \gls{MCDFGME}}
 
 
 
+\subsubsection{Level convergence methods}
+\todo{Talk about MCDF outputs and how to evaluate the convergence- Slope during cycles, overlaps, endiff, Zeff}
+
+\paragraph{First attempt at numerical convergence}
+For the first calculation, by default, a calculation of five self-consistent cycles is performed. 
+
+
+
+
+
+\paragraph{Second attempt at numerical convergence}
+b
+\paragraph{Third attempt at numerical convergence}
+c
+\todo{Maybe put a plot of the calculated wavefunctions}
 \section{Transition computations}
 \subsection{Diagram transitions}
 \subsection{Auger transitions}
