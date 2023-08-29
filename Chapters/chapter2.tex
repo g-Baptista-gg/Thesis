@@ -71,7 +71,7 @@ In total, and in addition to ionized Copper, 18 different standalone calculation
 
 \subsection{Selecting all possible orbital configurations}
 When performing an atomic structure calculation using the \gls{MCDFGME} code, a configuration needs to be given. Therefore, there is a need to manually
-In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's configuration is needed. This way, for each case, all the possible one-hole and two-holes configurations need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{ann:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
+In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's configuration is needed. This way, for each case, all the possible one-hole and two-holes configurations\footnote{These need to be considered due to describing the final state of the system after an Auger transition or Shake-off process} need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{an:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
 
 
 \section{Level Calculations}
@@ -213,9 +213,9 @@ And the energy of the level:
 \todo{Breit can be used as self consistent or perturbative}
 \todo{Talk about Lorentz and Coulomb gauges}
 
-A typical level calculation begins with the formating of the input \verb|.f05| file. This file contains the necessary information and instructions the program needs for the computation that follows when the executable \verb|mcdfgme2019.exe| is called.
+A typical level calculation begins with the formatting of the input \verb|.f05| file. This file contains the necessary information and instructions the program needs for the computation that follows when the executable \verb|mcdfgme2019.exe| is called.
 
-The input file has a certain input structure in which certain calculation parameters are defined. A previously tailored template input file (Annex~\ref{an:first_cycle}) is used, where, by default, the full Breit interaction is considered, with the magnetic and retardation parts, as well as vacuum polarization  included in the self-consistent process. Retardation is also applied to Lorentz's and Coulomb's gauges.
+The input file has a certain input structure in which certain calculation parameters are defined. A previously tailored template input file is used, where, by default, the full Breit interaction is considered, with the magnetic and retardation parts, as well as vacuum polarization  included in the self-consistent process. Retardation is also applied to Lorentz's and Coulomb's gauges.
 
 The template is now formatted in order to perform the calculation for the desired level. The element's atomic number and the electron configuration are selected with the former having the same format as in Annex~\ref{an:confs}. The double of the value of the  total angular momentum is then indicated (as not to work with non-integer values) and so is the Lagrange multiplier/eigenvalue.
 
@@ -231,7 +231,9 @@ The calculation can also be aborted due to a numerical error. In this case, if t
 The three other parameters used when evaluating if the convergence was successful can be checked only after the calculation is over:
 
 \begin{itemize}
-    \item Each cycle, the level energy is calculated through two different methods. These two values should be consulted for the last cycle and the absolute energy difference should be below a certain stipulated benchmark value ($1\ \si{\electronvolt}$).
+    \item Each cycle, a component of level energy is calculated through two different methods. These two values should be consulted for the last cycle and the absolute energy difference should be below a certain stipulated benchmark value ($1\ \si{\electronvolt}$).
+    \item The wavefunction overlaps between each orbital sharing the same $l_j$ value are displayed, since these cases are the most probable of having a convergence error leading them not to be orthogonal. The convergence is considered good if every value is low (under $10^{-7}$).
+    \item For every orbital, the effective charge is calculated and displayed. This parameter is related to the shielding effect the charge of the electrons in other orbitals exert on the nuclear charge. If the calculation converged correctly, these values should never be equal to the extreme possible values: $1$ or $N$, where $N$ is the total number of electrons. For each orbital, this value should be close to an expected value \todo{Meter aqui ref de como calcular}.
 \end{itemize}
 
 
@@ -239,19 +241,60 @@ The three other parameters used when evaluating if the convergence was successfu
 
 
 \subsubsection{Level convergence methods}
-\todo{Talk about MCDF outputs and how to evaluate the convergence- Slope during cycles, overlaps, endiff, Zeff}
 
 \paragraph{First attempt at numerical convergence}
-For the first calculation, by default, a calculation of five self-consistent cycles is performed. 
+For the first calculation, by default, a simpler template file (Annex~\ref{an:first_cycle}) is used and a calculation of five self-consistent cycles is performed. All  trial orbital wavefunctions are initialized by wavefunctions calculated using the Thomas Fermi potential.
 
 
 
 
 
 \paragraph{Second attempt at numerical convergence}
-b
+Should the first attempt have failed to reach convergence, a similar calculation is performed, keeping the previous parameters, but increasing the number of self-consistent cycles to 10, enforcing for each, an increasingly more precise accuracy and higher number of iterations. The template can be found in Annex~\ref{an:second_cycle}.
+
+
 \paragraph{Third attempt at numerical convergence}
-c
+Should the previous two attempts have been made, and no convergence was reached, a new calculation needs to be made. In addition to the change cycle parameters, the parameters for some orbitals are to be altered. This can be done by altering the initial wavefunction to hydrogenics, or to a previously computed one. The method for solving the Dirac equation can also be changed for each chosen orbital. This final attempt can be quite time-consuming due to the many possibilities and combinations of methods to be employed for each orbital.
+
+
+Since for every different studied system there are thousands of levels associated to it, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used the \verb|parallel| \verb|UNIX| command  for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \verb|MPI| approach for the purpose of parallelization. This last one will be discussed further in the thesis.
+
+In total, the total number of 1-hole and 2-holes calculated levels is displayed in table??
+
+\begin{table}[h!]
+    \centering
+    \caption{Total number of levels for each calculation. For all but the first column, the orbital indicates to where the electron was excited.}
+    \label{tab:tot_ang_mom}
+    \rowcolors{1}{}{GhostWhite}
+    \begin{tabular}{c|c|c|c|c|c|c}
+        \toprule Atomic&\multicolumn{3}{c|}{Number of levels}&\multicolumn{3}{c}{Number hand-converged levels}\\
+        System&1-hole&2-holes&Total&1-hole&2-holes&Total levels\\
+        \midrule 4s\\
+        4p\\
+        4d\\
+        4f\\
+        5s\\
+        5p\\
+        5d\\
+        5f\\
+        5g\\
+        6s\\
+        6p\\
+        6d\\
+        6f\\
+        6g\\
+        6h\\
+        7p\\
+        8p\\
+        9p\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\missingfigure{Put level diagram example
+}
+
+
+
 \todo{Maybe put a plot of the calculated wavefunctions}
 \section{Transition computations}
 \subsection{Diagram transitions}
