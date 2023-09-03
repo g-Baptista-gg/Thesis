@@ -53,13 +53,13 @@ Before proceeding with the explanation behind every step of the calculations per
 
 The main purpose of this thesis is that of simulating a theoretical spectrum for Copper's emission lines when subjected to a near ionization threshold x-ray source.
 
-At this energy range, two main processes will be responsible for an electron moving out a core-shell: Resonant photoexcitation, and ionization.
+At this energy range, two main processes will be responsible for an electron moving out of a core-shell: Resonant photoexcitation, and ionization.
 
 While the simulation of the theoretical spectra for ionized Copper would be quite straightforward (due to the low shake probabilities at near ionization threshold energies, transitions for satellite states were not considered), the more extensive calculation is that of the resonant photoexcitation.
 
 In order to fulfill the aim of simulating the theoretical spectra for this last phenomenon, multiple atomic structure calculations were computed for many of the excited state configurations for Copper.
 
-In total, and in addition to ionized Copper, 18 different standalone calculations were performed for should the atomic system have gone through the process of an excitation of any one of the constituent electrons to the following orbitals:
+In total, and in addition to ionized Copper, 18 different standalone calculations were performed for the case in which the atomic system has gone through the process of an excitation of any one of the constituent electrons to the following orbitals:
 
 \begin{itemize}
     \item 4s, 4p, 4d, 4f
@@ -70,8 +70,8 @@ In total, and in addition to ionized Copper, 18 different standalone calculation
 
 
 \subsection{Selecting all possible orbital configurations}
-When performing an atomic structure calculation using the \gls{MCDFGME} code, a configuration needs to be given. Therefore, there is a need to manually
-In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's configuration is needed. This way, for each case, all the possible one-hole and two-holes configurations\footnote{These need to be considered due to describing the final state of the system after an Auger transition or Shake-off process} need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{an:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
+
+In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's electronic configuration is needed, hence why, for each calculation, all the possible one-hole and two-holes configurations\footnote{These need to be considered due to describing the final state of the system after an Auger transition or Shake-off process. The Auger transition rates will be needed in order to compute the full width of the initial 1-hole level and diagram transitions.} need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{an:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
 
 
 \section{Level Calculations}
@@ -86,13 +86,13 @@ This, however, is no simple task. Besides the given configuration, an atomic lev
 
 
 
-Prior to proceeding with the discussion, it is important to establish some of the notation that will be used throughout this thesis. In this work, an atomic level will be described by three sets of quantum numbers. These will be the parameters that will influence the system's energy level diagram.
+Prior to proceeding with the discussion, it is important to establish some of the notation that will be used throughout this thesis. In this work, an atomic level will be described by three sets of quantum numbers. These will be the parameters that will influence the system's energy levels.
 
 \paragraph{Hole orbital labels}
 
 
-$\qty(n\ l_j)$ - This set can be composed of one or more labels indicators of the subshell where holes are present.
-For demonstrative purposes, assuming neutral Copper's ground state configuration as a starting point, before any hole-generating processes, to be $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1$, certain configurations can be obtained through the proper usage of the aforementioned quantum number set:
+$\qty(n\ l_j)$ - This quantum number set is related to the system's electronic configuration and can be composed of one or more labels, indicators of the orbitals where electrons are missing. These labels may have no physical meaning on their own and are used in conjunction with files such as the one in Annex~\ref{an:confs} in order to retrieve the system's electronic configuration
+For demonstrative purposes, assuming an initial Copper's ground state configuration as a starting point, before any hole-generating processes, to be $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1$, the quantum number set in question can be used to describe various possible ionization states:
 
 \begin{itemize}
     \item $1\text{s}^1\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1  \rightarrow \qty(1\text{s})$
@@ -231,8 +231,8 @@ The calculation can also be aborted due to a numerical error. In this case, if t
 The three other parameters used when evaluating if the convergence was successful can be checked only after the calculation is over:
 
 \begin{itemize}
-    \item Each cycle, a component of level energy is calculated through two different methods. These two values should be consulted for the last cycle and the absolute energy difference should be below a certain stipulated benchmark value ($1\ \si{\electronvolt}$).
-    \item The wavefunction overlaps between each orbital sharing the same $l_j$ value are displayed, since these cases are the most probable of having a convergence error leading them not to be orthogonal. The convergence is considered good if every value is low (under $10^{-7}$).
+    \item Each cycle, a component of the level's energy is calculated through two different methods. These two values should be consulted for the last cycle and the absolute energy difference should be below a certain stipulated benchmark value ($1\ \si{\electronvolt}$).
+    \item The wavefunction overlaps between each orbital sharing the same $l_j$ value are displayed, since these cases are the most probable of having a convergence error leading them not to be orthogonal. The convergence is considered acceptable if every value is lower than $10^{-6}$.
     \item For every orbital, the effective charge is calculated and displayed. This parameter is related to the shielding effect the charge of the electrons in other orbitals exert on the nuclear charge. If the calculation converged correctly, these values should never be equal to the extreme possible values: $1$ or $N$, where $N$ is the total number of electrons. For each orbital, this value should be close to an expected value \todo{Meter aqui ref de como calcular}.
 \end{itemize}
 
@@ -243,7 +243,7 @@ The three other parameters used when evaluating if the convergence was successfu
 \subsubsection{Level convergence methods}
 
 \paragraph{First attempt at numerical convergence}
-For the first calculation, by default, a simpler template file (Annex~\ref{an:first_cycle}) is used and a calculation of five self-consistent cycles is performed. All  trial orbital wavefunctions are initialized by wavefunctions calculated using the Thomas Fermi potential.
+For the first calculation, by default, a simpler template file (Annex~\ref{an:first_cycle}) is used and a calculation of five self-consistent cycles is performed. All  trial orbital wavefunctions are initialized by wavefunctions calculated using the Thomas Fermi potential~\cite{thomas_1927}.
 
 
 
@@ -266,8 +266,8 @@ In total, the total number of 1-hole and 2-holes calculated levels is displayed 
     \caption{Total number of levels for each calculation. For all but the first column, the orbital indicates to where the electron was excited.}
     \label{tab:tot_ang_mom}
     \rowcolors{1}{}{GhostWhite}
-    \begin{tabular}{c|c|c|c|c|c|c}
-        \toprule Atomic&\multicolumn{3}{c|}{Number of levels}&\multicolumn{3}{c}{Number hand-converged levels}\\
+    \begin{tabular}{c||c|c|c||c|c|c}
+        \toprule Atomic&\multicolumn{3}{c||}{Number of levels}&\multicolumn{3}{c}{Number of hand-converged levels}\\
         System&1-hole&2-holes&Total&1-hole&2-holes&Total levels\\
         \midrule 4s\\
         4p\\
@@ -297,9 +297,10 @@ In total, the total number of 1-hole and 2-holes calculated levels is displayed 
 
 \todo{Maybe put a plot of the calculated wavefunctions}
 \section{Transition computations}
+
 \subsection{Diagram transitions}
 \subsection{Auger transitions}
 \subsection{Satellite transitions}
 
-\subsubsection{Rate Matrices as a calculation quality comparison tool}
+\subsubsection{Rate Matrices as a calculation evaluating comparison tool}
 
