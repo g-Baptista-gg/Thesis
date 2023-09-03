@@ -48,18 +48,18 @@ As previously stated, \gls{MCDFGME} is a program that allows for not only solvin
 
 \section{The atomic system at study}
 
-Before proceeding with the explanation behind every step of the calculations performed, a previous discussion on the objective of the following calculations should be had.
+Before proceeding to the explanation behind every step of the calculations performed, a previous discussion on the reason behind them should be had.
 
 
-The main purpose of this thesis is that of simulating a theoretical spectrum for Copper's emission lines when subjected to a near ionization threshold x-ray source.
+The main purpose of this thesis is that of simulating a theoretical spectrum for Copper's x-ray emission lines when subjected to a near ionization threshold x-ray source.
 
 At this energy range, two main processes will be responsible for an electron moving out of a core-shell: Resonant photoexcitation, and ionization.
 
-While the simulation of the theoretical spectra for ionized Copper would be quite straightforward (due to the low shake probabilities at near ionization threshold energies, transitions for satellite states were not considered), the more extensive calculation is that of the resonant photoexcitation.
+While the simulation of the theoretical spectra for ionized Copper would be quite straightforward (due to the low shake probabilities at near ionization threshold energies, transitions for satellite states were not incorporated in the simulation), the more extensive calculation is that of resonant photoexcitation.
 
-In order to fulfill the aim of simulating the theoretical spectra for this last phenomenon, multiple atomic structure calculations were computed for many of the excited state configurations for Copper.
+Aside from ionized Copper, multiple atomic structure calculations were performed for many of Copper's first excited state configurations in order to consistently account for all possible decays from excited states.
 
-In total, and in addition to ionized Copper, 18 different standalone calculations were performed for the case in which the atomic system has gone through the process of an excitation of any one of the constituent electrons to the following orbitals:
+In total, and in addition to ionized Copper, 18 different standalone calculations were performed for the case in which the atomic system has undergone the process of an excitation of any one of the constituent electrons to one of the following orbitals:
 
 \begin{itemize}
     \item 4s, 4p, 4d, 4f
@@ -71,13 +71,13 @@ In total, and in addition to ionized Copper, 18 different standalone calculation
 
 \subsection{Selecting all possible orbital configurations}
 
-In order to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's electronic configuration is needed, hence why, for each calculation, all the possible one-hole and two-holes configurations\footnote{These need to be considered due to describing the final state of the system after an Auger transition or Shake-off process. The Auger transition rates will be needed in order to compute the full width of the initial 1-hole level and diagram transitions.} need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the following calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{an:confs}. These are obtained by running a single, or two holes by all the orbitals present in the ground state configuration.
+As to perform an atomic structure calculation, by making use of the \gls{MCDFGME} code, the system's electronic configuration is needed, hence why, for each calculation, all the possible one-hole and two-holes \footnote{These need to be considered due to describing the final state of the system after an Auger transition or Shake-off process. The Auger transition rates will be needed in order to compute the full width of the initial 1-hole level and diagram transitions.} configurations need to be provided, along with their respective labels which are used as identifiers of the orbital where the hole is present during the calculations. For example, in the case of ground state Copper that went through the process of the excitation of one of its electrons to the orbital 4p, there are many possibilities for the original orbital from where the electron came from. For this case, an example of all possible 1-hole and 2-holes configurations can be found in Annex~\ref{an:confs}. These are obtained by running a single hole, or two holes by all the orbitals present in the ground state configuration.
 
 
 \section{Level Calculations}
 Now that all configurations have been selected, the calculations can proceed.
 
-The first step needed to be performed in order to simulate theoretical spectra is the calculation of the level structure for all given configurations.
+The first and most influential, step needed in order to simulate theoretical spectra is the calculation of the level structure for all given configurations.
 
 This, however, is no simple task. Besides the given configuration, an atomic level is described by two other quantum numbers.
 
@@ -86,13 +86,13 @@ This, however, is no simple task. Besides the given configuration, an atomic lev
 
 
 
-Prior to proceeding with the discussion, it is important to establish some of the notation that will be used throughout this thesis. In this work, an atomic level will be described by three sets of quantum numbers. These will be the parameters that will influence the system's energy levels.
+Prior to proceeding with the discussion, it is important to establish some of the notation that will be used throughout this thesis. In this work, where hyperfine splitting is not accounted for, an atomic level will be described by three sets of quantum numbers. These will be the parameters that will influence the system's energy levels.
 
 \paragraph{Hole orbital labels}
 
 
-$\qty(n\ l_j)$ - This quantum number set is related to the system's electronic configuration and can be composed of one or more labels, indicators of the orbitals where electrons are missing. These labels may have no physical meaning on their own and are used in conjunction with files such as the one in Annex~\ref{an:confs} in order to retrieve the system's electronic configuration
-For demonstrative purposes, assuming an initial Copper's ground state configuration as a starting point, before any hole-generating processes, to be $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1$, the quantum number set in question can be used to describe various possible ionization states:
+$\qty(n\ l_j)$ - This quantum number set is related to the system's electronic configuration and can be composed of one or more labels, indicators of the orbitals where electrons are missing. These labels may have no physical meaning on their own and are used in conjunction with files such as the one in Annex~\ref{an:confs} in order to retrieve the system's electronic configuration.
+For demonstrative purposes, assuming an initial Copper's ground state configuration as a starting point, before any hole-generating processes, to be $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1$, the quantum number set in question can be used to describe various possible ionization configurations:
 
 \begin{itemize}
     \item $1\text{s}^1\ 2\text{s}^2\ 2\text{p}^6\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1  \rightarrow \qty(1\text{s})$
@@ -105,9 +105,9 @@ For demonstrative purposes, assuming an initial Copper's ground state configurat
 \paragraph{Total angular momentum number}
 
 
-$J$ - This number is the indicator of the total angular momentum of the atomic system, resulting from the couplings between the electrons'  orbital angular momenta and the electrons' spin. A single configuration can result in many coupling schemes, resulting in different couplings and, in turn, different values for $J$.
+$J$ - This number is the indicator of the total angular momentum of the atomic system, resulting from the couplings between the electrons'  orbital angular momenta and spin. A single configuration can result in many coupling possibilities and, in turn, different values for $J$.
 
-As an example, let's take that of Copper that went through the excitation process of an electron originally in the orbital 2p that is now in 4p, with an electron configuration of $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^5\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1\  4\text{p}^1 $. One can now easily observe there are three different open orbitals, each with an uncoupled electron. The different coupling possibilities between these three electrons will generate four different possible total angular momentum values: $J=\sfrac{1}{2},\ \sfrac{3}{2},\ \sfrac{5}{2},\ \sfrac{7}{2}$. In table \ref{tab:tot_ang_mom}, a coupling example will be given for each of them.
+As an example, let's take that of Copper that underwent the excitation process of an electron from the 2p orbital to 4p, with an electron configuration of $1\text{s}^2\ 2\text{s}^2\ 2\text{p}^5\ 3\text{s}^2\ 3\text{p}^6\ 3\text{d}^{10}\ 4\text{s}^1\  4\text{p}^1 $. One can now easily observe there are three open orbitals, each with an uncoupled electron. The different coupling possibilities between these three electrons will generate four different possible total angular momentum values: $J=\sfrac{1}{2},\ \sfrac{3}{2},\ \sfrac{5}{2},\ \sfrac{7}{2}$. In table \ref{tab:tot_ang_mom}, a coupling example will be given for each of them.
 
 
 \begin{table}[h!]
@@ -115,13 +115,13 @@ As an example, let's take that of Copper that went through the excitation proces
     \caption{Total angular momentum generated by different couplings}
     \label{tab:tot_ang_mom}
     \rowcolors{1}{}{GhostWhite}
-    \begin{tabular}{cc| cc | cc|c}
+    \begin{tabular}{cc|cc|cc|c}
         \toprule \multicolumn{2}{c|}{2p}&\multicolumn{2}{c|}{4s}&\multicolumn{2}{c|}{4p}&Total/$J$\\
         $m_l$ & $m_s$ & $m_l$&$m_s$&$m_l$&$m_s$&$m_l+m_s$\\\midrule
         $1$&$-\sfrac{1}{2}$&$0$&$-\sfrac{1}{2}$&$1$&$-\sfrac{1}{2}$&$\sfrac{1}{2}$\\
         $1$&$\sfrac{1}{2}$&$0$&$-\sfrac{1}{2}$&$1$&$-\sfrac{1}{2}$&$\sfrac{3}{2}$\\
         $1$&$\sfrac{1}{2}$&$0$&$\sfrac{1}{2}$&$1$&$-\sfrac{1}{2}$&$\sfrac{5}{2}$\\
-        $1$&$\sfrac{1}{2}$&$0$&$\sfrac{1}{2}$&$1$&$\sfrac{1}{2}$&$\sfrac{7}{2}$\\
+        $1$&$\sfrac{1}{2}$&$0$&$\sfrac{1}{2}$&$1$&$\sfrac{1}{2}$&$\sfrac{7}{2}$\\\bottomrule
     \end{tabular}
 \end{table}
 
@@ -221,6 +221,20 @@ The template is now formatted in order to perform the calculation for the desire
 
 There are many other parameters to chose in order to have the \verb|.f05| ready for the computation. These parameters, however, are not always the same, since occasionally different methods will have to be employed in order to reach convergence. Before these methods are discussed, it is necessary to provide an explanation as to how to evaluate the numerical convergence of the calculation:
 
+\subsection{Level calculation with \gls{MCDFGME} - Alternative}
+
+For a given set of quantum numbers, a relativistic \gls{MCDF} was performed using the \gls{MCDFGME} script. The code executes an iterative self-consistent field calculation, accounting for both Coulomb and Breit's interactions, including the magnetic and retardation parts for the latter. For \gls{QED} corrections, the formation of local potentials due to vacuum polarization was included in the self-consistent part of the calculation, while corrections due to self-energy were treated as perturbation. Furthermore, electron correlation was also accounted for by composing the antisymmetric wavefunction as a linear combination of state wavefunctions.
+
+For executing the calculation, a previously tailored \verb|.f05| input file is prepared. In it, a calculation with all the previously mentioned interactions is set up, with the option of changing the initial trial wavefunctions and the parameters of the self-consistent calculation cycles. Throughout the calculation these wavefunctions will go through a variational process, changing until the optimal solution is reached, as can be observed in Figure~\ref{fig:WFcomp}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.5\textwidth]{Chapters/Figures/Chapter2/WFcomp.pdf}
+    \caption{Wavefunction at the beginning and end of the self-consistent iterative process.}\label{fig:WFcomp}
+\end{figure}
+
+
+
 \subsubsection{Evaluating the convergence}
 After launching the \verb|mcdfgme2019.exe| executable, the computation will start, generating an output file with the \verb|.f06| extension, where the output will be written while the program is actively running.
 
@@ -259,18 +273,20 @@ Should the previous two attempts have been made, and no convergence was reached,
 
 Since for every different studied system there are thousands of levels associated to it, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used the \verb|parallel| \verb|UNIX| command  for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \verb|MPI| approach for the purpose of parallelization. This last one will be discussed further in the thesis.
 
-In total, the total number of 1-hole and 2-holes calculated levels is displayed in table??
+In the total number of calculated 1-hole and 2-holes levels is displayed in Table~\ref{tab:tot_levels}.
 
 \begin{table}[h!]
     \centering
-    \caption{Total number of levels for each calculation. For all but the first column, the orbital indicates to where the electron was excited.}
-    \label{tab:tot_ang_mom}
+    \caption{Total number of levels calculated. For all but the first row, the orbital represented is the one where an electron was excited to.}
+    \label{tab:tot_levels}
     \rowcolors{1}{}{GhostWhite}
     \begin{tabular}{c||c|c|c||c|c|c}
         \toprule Atomic&\multicolumn{3}{c||}{Number of levels}&\multicolumn{3}{c}{Number of hand-converged levels}\\
-        System&1-hole&2-holes&Total&1-hole&2-holes&Total levels\\
-        \midrule 4s\\
-        4p\\
+        System&1-hole&2-holes&Total&1-hole&2-holes&Total\\
+        \midrule
+        Cu$^{1+}$ & 19 &183&202&0&1&1\\ 
+        4s\\
+        4p & 83 &1001 &1084&17&118&135\\
         4d\\
         4f\\
         5s\\
@@ -287,6 +303,8 @@ In total, the total number of 1-hole and 2-holes calculated levels is displayed 
         7p\\
         8p\\
         9p\\
+        \midrule
+        Total\\
         \bottomrule
     \end{tabular}
 \end{table}
