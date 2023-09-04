@@ -223,24 +223,24 @@ There are many other parameters to chose in order to have the \verb|.f05| ready 
 
 \subsection{Level calculation with \gls{MCDFGME} - Alternative}
 
-For a given set of quantum numbers, a relativistic \gls{MCDF} was performed using the \gls{MCDFGME} script. The code executes an iterative self-consistent field calculation, accounting for both Coulomb and Breit's interactions, including the magnetic and retardation parts for the latter. For \gls{QED} corrections, the formation of local potentials due to vacuum polarization was included in the self-consistent part of the calculation, while corrections due to self-energy were treated as perturbation. Furthermore, electron correlation was also accounted for by composing the antisymmetric wavefunction as a linear combination of state wavefunctions.
+For a given set of quantum numbers, a relativistic \gls{MCDF} was performed using the \gls{MCDFGME} script. The code executes an iterative self-consistent field calculation, accounting for both Coulomb and Breit's interactions, including the magnetic and retardation parts for the latter. For \gls{QED} corrections, the formation of local potentials due to vacuum polarization was included in the self-consistent part of the calculation, while corrections due to self-energy were treated as perturbation. Furthermore, electron correlation was also accounted for by composing the antisymmetric wavefunction as a linear combination of state wavefunctions with mixing coefficients.
 
 For executing the calculation, a previously tailored \verb|.f05| input file is prepared. In it, a calculation with all the previously mentioned interactions is set up, with the option of changing the initial trial wavefunctions and the parameters of the self-consistent calculation cycles. Throughout the calculation these wavefunctions will go through a variational process, changing until the optimal solution is reached, as can be observed in Figure~\ref{fig:WFcomp}.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=.5\textwidth]{Chapters/Figures/Chapter2/WFcomp.pdf}
-    \caption{Wavefunction at the beginning and end of the self-consistent iterative process.}\label{fig:WFcomp}
-\end{figure}
+    \caption{ 4s Large component wavefunction after one and ten cycles of the self-consistent iterative process.}\label{fig:WFcomp}
+\end{figure}\todo{Olha lá se não tens que fazer o quadrado disso}
 
 
 
 \subsubsection{Evaluating the convergence}
 After launching the \verb|mcdfgme2019.exe| executable, the computation will start, generating an output file with the \verb|.f06| extension, where the output will be written while the program is actively running.
 
-One of the convergence benchmarks can already be evaluated while the calculation is being processed. Actively monitoring the output file with, as an example, the \verb|UNIX| command \verb|tail|, one can observe some output from the self-consistent cycles. Should the numerical method not be reaching proper convergence, some warnings concerning sudden shifts in the wavefunction derivative may be displayed.
+One of the convergence benchmarks can already be evaluated while the calculation is being processed. Actively monitoring the output file with, as an example, the \verb|UNIX| command \verb|tail|, one can observe the output from the self-consistent cycles. Should the numerical method be diverging, warnings concerning sudden shifts in the wavefunction derivative may be displayed.
 
-The calculation can also be aborted due to a numerical error. In this case, if the error occurred while running calculations for a certain orbital(s), this/these will be displayed on the error output. 
+The calculation can also be aborted due to a numerical error. In this case, if the error occurred while running calculations for a certain orbital(s), this/these will be displayed in the output. 
 
 The three other parameters used when evaluating if the convergence was successful can be checked only after the calculation is over:
 
@@ -255,6 +255,7 @@ The three other parameters used when evaluating if the convergence was successfu
 
 
 \subsubsection{Level convergence methods}
+\todo{Some text here}
 
 \paragraph{First attempt at numerical convergence}
 For the first calculation, by default, a simpler template file (Annex~\ref{an:first_cycle}) is used and a calculation of five self-consistent cycles is performed. All  trial orbital wavefunctions are initialized by wavefunctions calculated using the Thomas Fermi potential~\cite{thomas_1927}.
@@ -271,13 +272,13 @@ Should the first attempt have failed to reach convergence, a similar calculation
 Should the previous two attempts have been made, and no convergence was reached, a new calculation needs to be made. In addition to the change cycle parameters, the parameters for some orbitals are to be altered. This can be done by altering the initial wavefunction to hydrogenics, or to a previously computed one. The method for solving the Dirac equation can also be changed for each chosen orbital. This final attempt can be quite time-consuming due to the many possibilities and combinations of methods to be employed for each orbital.
 
 
-Since for every different studied system there are thousands of levels associated to it, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used the \verb|parallel| \verb|UNIX| command  for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \verb|MPI| approach for the purpose of parallelization. This last one will be discussed further in the thesis.
+Since for every calculation thousands of levels need to be computed, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used \verb|GNU|'s \verb|parallel|  command  for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \verb|MPI| approach for the purpose of parallelization. This last one will be discussed further in the thesis.
 
 In the total number of calculated 1-hole and 2-holes levels is displayed in Table~\ref{tab:tot_levels}.
 
 \begin{table}[h!]
     \centering
-    \caption{Total number of levels calculated. For all but the first row, the orbital represented is the one where an electron was excited to.}
+    \caption{Total number of levels calculated. For all but the first row, the indicated orbital is the one where an electron was excited to.}
     \label{tab:tot_levels}
     \rowcolors{1}{}{GhostWhite}
     \begin{tabular}{c||c|c|c||c|c|c}
@@ -316,9 +317,23 @@ In the total number of calculated 1-hole and 2-holes levels is displayed in Tabl
 \todo{Maybe put a plot of the calculated wavefunctions}
 \section{Transition computations}
 
+After all level computations have been performed, the next step towards the spectra simulation should be that of calculating level transitions. Any level that is not ground state will eventually decay into one more stable and less energetic. This process is what eventually allows for the emission of x-ray light and Auger electrons.
+
+When considering transitions between a given set of states, the transition energy and transition rate matrices are two 2D matrices of great importance, since their matrix elements contain the mentioned properties for all possible transitions across the set.
+
 \subsection{Diagram transitions}
+
+Diagram transitions are associated with radiative transitions between two 1-hole states. For ionized systems, this kind of transitions are associated to the characteristic radiation from principal spectral lines such as $K_{\alpha},\ K_{\beta}, L$, etc. For this reason, they are the focal point of study for the work performed on this thesis.
+
+Given a set of all 1-hole levels, one must consider only transitions from higher to lower energetic states. Therefore, the total number of diagram transitions can be simply calculated by the two set 
+
+
+
+\todo{Falar que calcula todas as componentes M e E}
 \subsection{Auger transitions}
+Full relaxation
 \subsection{Satellite transitions}
+Forced orthogonality
 
 \subsubsection{Rate Matrices as a calculation evaluating comparison tool}
 
