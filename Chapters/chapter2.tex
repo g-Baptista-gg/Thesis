@@ -198,6 +198,7 @@ In conclusion, an atomic level can be defined by the set of these three quantum 
 
 \begin{equation}
     i\equiv \qty[(n\ l_j)_i;\ J_i;\ \epsilon_i],
+    \label{eq:level_notation}
 \end{equation}
 
 And the energy of the level:
@@ -255,7 +256,7 @@ The three other parameters used when evaluating if the convergence was successfu
 
 
 \subsubsection{Level convergence methods}
-\todo{Some text here}
+\todo{Some text here. Mention the Optimize orbital method.}
 
 \paragraph{First attempt at numerical convergence}
 For the first calculation, by default, a simpler template file (Annex~\ref{an:first_cycle}) is used and a calculation of five self-consistent cycles is performed. All  trial orbital wavefunctions are initialized by wavefunctions calculated using the Thomas Fermi potential~\cite{thomas_1927}.
@@ -286,24 +287,24 @@ In the total number of calculated 1-hole and 2-holes levels is displayed in Tabl
         System&1-hole&2-holes&Total&1-hole&2-holes&Total\\
         \midrule
         Cu$^{1+}$ & 19 &183&202&0&1&1\\ 
-        4s\\
+        4s& 10\\
         4p & 83 &1001 &1084&17&118&135\\
-        4d\\
-        4f\\
-        5s\\
-        5p\\
-        5d\\
-        5f\\
-        5g\\
-        6s\\
-        6p\\
-        6d\\
-        6f\\
-        6g\\
+        4d & 107 &\\
+        4f & 114\\
+        5s & 33\\
+        5p & 83\\
+        5d & 107\\
+        5f & 114\\
+        5g & 115\\
+        6s & 33\\
+        6p & 83\\
+        6d & 107\\
+        6f & 114\\
+        6g & 115\\
         6h\\
-        7p\\
-        8p\\
-        9p\\
+        7p & 83\\
+        8p & 83\\
+        9p & 83\\
         \midrule
         Total\\
         \bottomrule
@@ -317,23 +318,53 @@ In the total number of calculated 1-hole and 2-holes levels is displayed in Tabl
 \todo{Maybe put a plot of the calculated wavefunctions}
 \section{Transition computations}
 
-After all level computations have been performed, the next step towards the spectra simulation should be that of calculating level transitions. Any level that is not ground state will eventually decay into one more stable and less energetic. This process is what eventually allows for the emission of x-ray light and Auger electrons.
+After all level computations have been performed, the next step towards the spectra simulation should be that of calculating level transitions. Any level that is not ground state will eventually decay into a more stable and less energetic one. This process is what eventually allows for the emission of x-ray radiation and Auger electrons.
 
-When considering transitions between a given set of states, the transition energy and transition rate matrices are two 2D matrices of great importance, since their matrix elements contain the mentioned properties for all possible transitions across the set.
+When considering transitions between a given set of states, the transition energy and transition rate matrices are two 2D matrices of the greatest importance on spectra simulation, since their matrix elements contain the mentioned properties for all possible transitions across the set.
+
+For an initial state denoted by $i$ and a final one by $j$ (using the notation from equation~\eqref{eq:level_notation}), the matrix elements are as follows:
+
+For the energy matrix:
+
+\begin{equation}
+    E_{i,j} = E_i - E_j , 
+\end{equation}
+
+And now for the rate matrix:
+
+\begin{equation}
+    R_{i,j}=R\qty[(n,l_j)_i,J_i,\epsilon_i;(n,l_j)_f,J_f,\epsilon_f],
+\end{equation}
 
 \subsection{Diagram transitions}
 
 Diagram transitions are associated with radiative transitions between two 1-hole states. For ionized systems, this kind of transitions are associated to the characteristic radiation from principal spectral lines such as $K_{\alpha},\ K_{\beta}, L$, etc. For this reason, they are the focal point of study for the work performed on this thesis.
 
-Given a set of all 1-hole levels, one must consider only transitions from higher to lower energetic states. Therefore, the total number of diagram transitions can be simply calculated by the two set 
+Given a set of all $n_{1-\text{hole}}$ 1-hole levels, one must consider only transitions from higher to lower energetic states. Therefore, the total number of diagram transitions, not taking account level degeneracy, $N_{\text{diag}}$ can be simply calculated by the number of combinations of two 1-hole states:
+
+\begin{equation}
+    N_{\text{diag}} = \frac{n_{1-\text{hole}}!}{2\cdot\qty(n_{1-\text{hole}}-2)!},
+\end{equation}
 
 
 
-\todo{Falar que calcula todas as componentes M e E}
+For the rate calculation, the same approach was taken as in the works of Guerra~\cite{Guerra2021} and Pinheiro~\cite{Pinheiro2023}, where the lack of orthogonality in the initial and final state due to numerical convergence is treated by the formalism present in Löwdin's work~\cite{Lowdin1955} and full orbital relaxation is allowed.
+
+While \gls{MCDFGME} calculates transition rates for both Coulomb (length) and Lorentz (velocity) gauges\todo{needs to be checked}, only the length gauge calculated ones were used in this work. Rates are calculated for both Electric and Magnetic transitions and their many components (poles).
+
 \subsection{Auger transitions}
-Full relaxation
+
+As previous mentioned, these type of transitions are characterized by the transition's energy release coming in the form of an ejected electron, as opposed to x-ray radiation.
+
+The set of initial and final states is now composed of the 1-hole and 2-hole sets. While for diagram transitions the total number of transitions could be calculated just by the number of elements in the set, in this case is not as simple, as the energy for every level has to be taken into account. The maximum number of possible transitions could be calculated by the product of the total number of 1-hole and 2-hole levels. The real number of transitions is, however, far away from this value.
+
+Once again, the same procedure as in \cite{Guerra2021,Pinheiro2023} was followed. Given the energy of the transition, the free electron wavefunction is calculated for the same potential as the initial state. This time, no relaxation is included, as to only account for the ionization, and orthogonality between the free wave and the bound orbitals is enforced.
+
+
 \subsection{Satellite transitions}
-Forced orthogonality
+This type of transitions are related to radiative relaxation between two 2-hole states. They are, therefore processed the same as Diagram transitions.
+
+While they might not be of great relevance for this thesis, some were still calculated as they can be useful for other works due to being equivalent to some diagram transitions for Copper following shake-up.
 
 \subsubsection{Rate Matrices as a calculation evaluating comparison tool}
 
