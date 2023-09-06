@@ -8,49 +8,68 @@
 
 \typeout{NT FILE chapter3.tex}%
 
-\chapter{A new High-Performance Computing code for the parallelization of atomic structure calculations}
-\section{A brief introduction on \gls{MPI}}
+\chapter{Calculation of fundamental parameters}
 
+With every transition's energy and rate calculated, certain parameters of great relevance for spectra simulation, or even by their own merit can be now be computed. 
 
-\section{Program advantages}
-\section{Program limitations}
-Blocking communication
+\section{Fluorescence Yield}
 
-CPU overheat
+This parameter is, by itself, one of the most impactful\todo{alguma cena aqui}. The Fluorescence Yield value for a given 1-hole state reflects the probability of said state to decay via radiative decay, as opposed to auger emission. In order to compute it, a few steps must be taken:
 
-No buffering for now
-\chapter{Fundamental atomic parameters calculation}
-asdas
-\chapter{Spectra simulation}
-asdas
+First, a reminder that, for each computed level $i$, due to its degeneracy, there is actually an amount of $g_i$ states sharing the same properties:
 
-\chapter{Spectra analysis}
-\section{Photoexcitation cross-section estimation}
-\section{Photoionization cross-section computation}
+\begin{equation}
+    g_i\equiv g\qty[(n,l_j)_i,J_i,\epsilon_i]=2J_i+1,
+    \label{eq:degen}
+\end{equation}
 
-\chapter{Comparison with experimental data}
-\chapter{Next Steps}
-\chapter{Final remarks and Conclusion}
----------------------------------------------------
+That level's total radiative rate, $R_i^{R}$ can now be computed as the sum of the rates for every transition from that level to another 1-hole level, denoted by $f$:
 
-\todo{Usar o Denitions aqui}
+\begin{equation}
+    R_i^{R} = g_i \sum_f \cdot R_{i,f}^{R},
+\end{equation}
 
-\section{Quantum states and properties}
+The same procedure can be followed for the non-radiative rate, $R_i^{NR}$ considering the final 2-hole levels:
 
-\section{State transitions}
+\begin{equation}
+    R_i^{R} = g_i \sum_f \cdot R_{i,f}^{NR},
+\end{equation}
 
-\subsection{Transition rates and widths}
-\subsection{Branching Ratios and Fluorescence Yields}
+That level's fluorescence yield, $\omega_i$ can now simply be calculated by:
 
-\section{Spectra simulation}
+\begin{equation}
+    \omega_i=\frac{R_i^{R}}{R_i^{R}+R_i^{NR}},
+\end{equation}
 
-\chapter{Spectra Analysis}
+This quantity, however, may not be much relevant by itself. When discussing fluorescence Yields, usually we are interested in the subshell's yield. In order to calculate this value for the desired subshell, eg. K$_1$, the values for both rates should be summed for every level with a hole present in the subshell at study.
 
-\chapter{Development of a \gls{HPC} script for the parallelization of \gls{ASC}}
+The values of the fluorescence yields for every calculated excited state can be found in Table~\ref{tab:FY}:
 
-\section{blablabla}
-
-\section{Speedup}
-\todo{Compare with Amdahl's law or Gustafson's law. }
-\todo{Comparação com o do Jorge}
-
+\begin{table}[h!]
+    \centering
+    \caption{Fluorescence Yield for the first 9 subshells.}
+    \label{tab:FY}
+    \rowcolors{1}{}{GhostWhite}
+    \begin{tabular}{c||c|c|c|c|c|c|c|c|c}
+        \toprule Atomic&\multicolumn{9}{c}{Fluorescence Yield}\\
+        System&K$_1$&L$_1$&L$_2$&L$_3$&M$_1$&M$_2$&M$_3$&M$_4$&M$_5$\\
+        \midrule
+        Cu$^{1+}$ \\ 
+        4s&  \\
+        4p &  &\\
+        4d & &\\
+        4f & \\
+        5s & \\
+        5p & \\
+        5d & \\
+        5f & \\
+        5g & \\
+        6s & \\
+        6p & \\
+        6d & \\
+        6f & \\
+        6g & \\
+        6h\\
+        \bottomrule
+    \end{tabular}
+\end{table}

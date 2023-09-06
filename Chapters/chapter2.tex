@@ -322,18 +322,18 @@ After all level computations have been performed, the next step towards the spec
 
 When considering transitions between a given set of states, the transition energy and transition rate matrices are two 2D matrices of the greatest importance on spectra simulation, since their matrix elements contain the mentioned properties for all possible transitions across the set.
 
-For an initial state denoted by $i$ and a final one by $j$ (using the notation from equation~\eqref{eq:level_notation}), the matrix elements are as follows:
+For an initial state denoted by $i$ and a final one by $f$ (using the notation from equation~\eqref{eq:level_notation}), the matrix elements are as follows:
 
 For the energy matrix:
 
 \begin{equation}
-    E_{i,j} = E_i - E_j , 
+    E_{i,f} = E_i - E_f , 
 \end{equation}
 
 And now for the rate matrix:
 
 \begin{equation}
-    R_{i,j}=R\qty[(n,l_j)_i,J_i,\epsilon_i;(n,l_j)_f,J_f,\epsilon_f],
+    R_{i,f}=R\qty[(n,l_j)_i,J_i,\epsilon_i;(n,l_j)_f,J_f,\epsilon_f],
 \end{equation}
 
 \subsection{Diagram transitions}
@@ -366,5 +366,68 @@ This type of transitions are related to radiative relaxation between two 2-hole 
 
 While they might not be of great relevance for this thesis, some were still calculated as they can be useful for other works due to being equivalent to some diagram transitions for Copper following shake-up.
 
-\subsubsection{Rate Matrices as a calculation evaluating comparison tool}
 
+The total number of calculated transitions can be found in Table \ref{tab:tot_trans}:
+
+
+\begin{table}[h!]
+    \centering
+    \caption{Total number of levels calculated. For all but the first row, the indicated orbital is the one where an electron was excited to.}
+    \label{tab:tot_trans}
+    \rowcolors{1}{}{GhostWhite}
+    \begin{tabular}{c||c|c|c||c}
+        \toprule Atomic&\multicolumn{4}{c}{Number of transitions}\\
+        System&Diagram&Auger&Satellite&Total\\
+        \midrule
+        Cu$^{1+}$ & 171 &968&16653\\ 
+        4s& 45 \\
+        4p & 3403 &\\
+        4d & 5671 &\\
+        4f & 6441\\
+        5s & 528\\
+        5p & 3403\\
+        5d & 5671\\
+        5f & 6441\\
+        5g & 6555\\
+        6s & 528\\
+        6p & 3403\\
+        6d & 5671\\
+        6f & 6441\\
+        6g & 6555\\
+        6h\\
+        7p & 83\\
+        8p & -\\
+        9p & -\\
+        \midrule
+        Total\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Rate and Energy Matrices as a calculation quality evaluation tool}
+
+Due to \gls{MCDFGME} applying a numerical method, even after employing the optimize orbital for level calculation, the results obtained may not be accurate. This way a method for helping visualize the quality of a calculation is by plotting the rate matrix for the calculation.
+
+The employment of this method was what lead to the decision not to perform the transition calculations for excitations to orbitals 8p and 9p, as well as excluding the results for excitation to 7p from the spectra simulation.
+
+As an example, Figure~\ref{fig:4p_rm} represents the rate matrix for 4p-excited Copper:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{Chapters/Figures/Chapter2/4p_RM.pdf}
+    \caption{Rate Matrix for 4p-excited Copper.}\label{fig:4p_rm}
+\end{figure}
+
+It is quite apparent that, as expected, only half the matrix elements are filled, due to transitions only occurring from higher to lower energy states. Moreover, transitions from np to 1s orbitals possessed the highest transition rate values, due to them composing the K spectrum, and the near-diagonal energy matrix elements present low energy values, due to being associated to similar state transitions. This city-like view is quite characteristic and can also be observed in all other successful calculations (consult Annex ??).
+
+In the case of 7p-excited Copper, the fact that the obtained result is not correct is quite apparent just by looking at Figure~\ref{fig:7p_rm}:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{Chapters/Figures/Chapter2/7p_RM.pdf}
+    \caption{Rate Matrix for 7p-excited Copper.}\label{fig:7p_rm}
+\end{figure}
+
+Here, the fact that the upper electron is in such a high orbital could have lead to an improper convergence during the level calculation. This may be responsible for the wrong level energies, which in turn influenced the calculated transitions. Due to this behavior, no more transition calculations were performed for excitations to upper orbitals.
+\todo{ver o que raios se passou com o 7p}
