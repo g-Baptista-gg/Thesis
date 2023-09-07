@@ -41,7 +41,7 @@ That level's fluorescence yield, $\omega_i$ can now simply be calculated by:
     \omega_i=\frac{R_i^{R}}{R_i^{R}+R_i^{NR}},
 \end{equation}
 
-This quantity, however, may not be much relevant by itself. When discussing fluorescence Yields, usually we are interested in the subshell's yield. In order to calculate this value for the desired subshell, eg. K$_1$, the values for both rates should be summed for every level with a hole present in the subshell at study.
+This quantity, however, may not be of much relevance by itself. When discussing fluorescence yields, usually we are interested in the subshell's yield. In order to calculate this value for the desired subshell, eg. K$_1$, the values for both rates should be summed for every level with a hole present in the subshell at study.
 
 The values of the fluorescence yields for every calculated excited state can be found in Table~\ref{tab:FY}:
 
@@ -73,3 +73,40 @@ The values of the fluorescence yields for every calculated excited state can be 
         \bottomrule
     \end{tabular}
 \end{table}
+
+\subsection{Transition width}
+
+The full width of a level can only be calculated after all possible transitions have been computed. This width arises due to the fact the level can decay into others with a certain rate and is associated with the natural broadening give by Heisenberg's uncertainty principle ($\Delta E \Delta t\geq \hbar$). The width of the level, $\Gamma_i$, is given by:
+
+\begin{equation}
+    \Gamma_i = \hbar\cdot \qty(R_i^{R}+R_i^{NR}),
+\end{equation}
+
+Now, for the calculation of the full width of an atomic transition,$\Gamma_{i,f}$, the level for both initial and final states is considered:
+
+\begin{equation}
+    \Gamma_{i,f}=\Gamma_i+\Gamma_f
+\end{equation}
+
+\section{Transition intensity}
+
+The final parameter needed for a preliminary spectra simulation is the intensity of the transition.
+
+For the calculation of this parameter, one must look not only at the transition's rate, but also at the weight of the  initial level in the whole set that share a hole in the same subshell. For this, the subshell's multiplicity needs to be computed:
+
+\begin{equation}
+    g_{sub}\equiv g\qty[\qty(n,l_j)_i]=\sum_{J,\epsilon}g\qty[\qty(n,l_j)_i,J,\epsilon]
+\end{equation}
+
+The level intensity can now be computed as proportional to the product of the statistical weight of the level with the branching ratio of the transition, and the level's fluorescence yield:
+
+\begin{equation}
+    I_{i,f}\equiv I\qty[\qty(n,l_j)_i,J_i,\epsilon_i;\qty(n,l_j)_f,J_f,\epsilon_f]=N_i \overbrace{\frac{g_i}{g_{sub}}}^{\text{Statistical weight}} \underbrace{\frac{R_{i,f}}{R^R_i}}_{\text{Branching ratio}}  \omega_i, \label{eq:int_1}
+\end{equation}
+ Which can be further simplified:
+
+ \begin{equation}
+    I_{i,f}=N_i \frac{g_i}{g_{sub}} \frac{R_{i,f}}{R_i^R} \frac{R_i^R}{R_i^R + R_i^{NR}}=N_i \frac{g_i}{g_{sub}} \frac{R_{i,f}}{R_i^R+R_i^{NR}}, \label{eq:int_2}
+ \end{equation}
+
+ In equations~\eqref{eq:int_1} and~\eqref{eq:int_2}, $N_i$ works as a scaling parameter to account for the density of atomic systems that are found in the state $i$. In the case of an ionized system, when comparing emissions generated due to a hole in the same subshell, the probability of generating that hole is approximated as being the same for all relevant levels, and this value is typically attributed a value of 1. A spectrum simulated using this consideration can be further found in Figure ??. This approximation, however is not valid when dealing with resonant photoexcitations, as will be further discussed in the next section.
