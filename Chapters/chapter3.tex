@@ -8,7 +8,7 @@
 
 \typeout{NT FILE chapter3.tex}%
 
-\chapter{Calculation of fundamental parameters}
+\chapter{Calculation of fundamental parameters}\label{cha:parameters}
 
 With every transition's energy and rate calculated, certain parameters of great relevance for spectra simulation, or even by their own merit can be now be computed. 
 
@@ -85,17 +85,18 @@ The full width of a level can only be calculated after all possible transitions 
 Now, for the calculation of the full width of an atomic transition,$\Gamma_{i,f}$, the level for both initial and final states is considered:
 
 \begin{equation}
-    \Gamma_{i,f}=\Gamma_i+\Gamma_f
+    \Gamma_{i,f}=\Gamma_i+\Gamma_f,
+    \label{eq:trans_width}
 \end{equation}
 
-\section{Transition intensity}
+\section{Transition intensity}\label{sec:trans_int}
 
 The final parameter needed for a preliminary spectra simulation is the intensity of the transition.
 
 For the calculation of this parameter, one must look not only at the transition's rate, but also at the weight of the  initial level in the whole set that share a hole in the same subshell. For this, the subshell's multiplicity needs to be computed:
 
 \begin{equation}
-    g_{sub}\equiv g\qty[\qty(n,l_j)_i]=\sum_{J,\epsilon}g\qty[\qty(n,l_j)_i,J,\epsilon]
+    g_{sub}\equiv g\qty[\qty(n,l_j)_i]=\sum_{J,\epsilon}g\qty[\qty(n,l_j)_i,J,\epsilon],
 \end{equation}
 
 The level intensity can now be computed as proportional to the product of the statistical weight of the level with the branching ratio of the transition, and the level's fluorescence yield:
@@ -109,4 +110,5 @@ The level intensity can now be computed as proportional to the product of the st
     I_{i,f}=N_i \frac{g_i}{g_{sub}} \frac{R_{i,f}}{R_i^R} \frac{R_i^R}{R_i^R + R_i^{NR}}=N_i \frac{g_i}{g_{sub}} \frac{R_{i,f}}{R_i^R+R_i^{NR}}, \label{eq:int_2}
  \end{equation}
 
- In equations~\eqref{eq:int_1} and~\eqref{eq:int_2}, $N_i$ works as a scaling parameter to account for the density of atomic systems that are found in the state $i$. In the case of an ionized system, when comparing emissions generated due to a hole in the same subshell, the probability of generating that hole is approximated as being the same for all relevant levels, and this value is typically attributed a value of 1. A spectrum simulated using this consideration can be further found in Figure ??. This approximation, however is not valid when dealing with resonant photoexcitations, as will be further discussed in the next section.
+ In equations~\eqref{eq:int_1} and~\eqref{eq:int_2}, $N_i$ works as a scaling parameter to account for the density of atomic systems that are found in the state $i$. In the case of an ionized system, when comparing emissions generated due to a hole in the same subshell, the probability of generating that hole is approximated as being the same for all relevant levels, and this value is typically attributed a value of 1. A spectrum simulated using this consideration can be further found in Figure~\ref{fig:Lor_Voigt}. This approximation, however is not valid when dealing with resonant photoexcitations, as will be discussed in the next section.
+ 

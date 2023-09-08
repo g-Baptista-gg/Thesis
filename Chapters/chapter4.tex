@@ -8,49 +8,90 @@
 
 \typeout{NT FILE chapter4.tex}%
 
-\chapter{A new High-Performance Computing code for the parallelization of atomic structure calculations}
-\section{A brief introduction on \gls{MPI}}
-
-
-\section{Program advantages}
-\section{Program limitations}
-Blocking communication
-
-CPU overheat
-
-No buffering for now
-\chapter{Fundamental atomic parameters calculation}
-asdas
 \chapter{Spectra simulation}
-asdas
+ 
+This chapter is the culmination of all the work performed on this thesis. Synthetic theoretical spectra will be computed using the calculated parameters from chapters~\ref{cha:atom_calc} and~\ref{cha:parameters}. For the simulation of the resonant effect, a new approximate method for estimating photoexcitation cross-sections will be developed.
 
-\chapter{Spectra analysis}
-\section{Photoexcitation cross-section estimation}
-\section{Photoionization cross-section computation}
+\section{Theoretical line shapes}
 
-\chapter{Comparison with experimental data}
-\chapter{Next Steps}
-\chapter{Final remarks and Conclusion}
----------------------------------------------------
+Even though an atomic state transitions possess well-defined energy values, as calculated in chapter~\ref{cha:atom_calc}, it is now also clear that these transitions also have an energetic uncertainty to them, given by the sum of the energy widths of the initial and final levels (equation~\eqref{eq:trans_width}). The theoretical emission shape is given by a Lorentzian profile, centered around the emission energy, $E_{i,f}$, with a FWHM of $\Gamma_{i,f}$ and an amplitude of $I_{i,f}$:
 
-\todo{Usar o Denitions aqui}
+\begin{equation}
+    L\equiv L\qty(E-E_{i,f},\Gamma_{i,f},I_{i,f})=\frac{I_{i,f}}{2\pi}\frac{\Gamma_{i,f}}{\qty(E-E_{i,f})^2+\qty(\Gamma_{i,f}/2)^2},
+    \label{eq:Lorentzian}
+\end{equation}
 
-\section{Quantum states and properties}
+This profile, however, would only be valid for the emission of radiation by stationary atoms (with no thermal distribution) and does not account for the detection of said radiation and interactions it may have with the experimental apparatus, with these last considerations being nondeterministic, but stochastic in nature. To account for this, a new broadening should be considered.
 
-\section{State transitions}
+A common way to tackle this problem is to compute the convolution of the theoretical shape from equation~\eqref{eq:Lorentzian} with the Gaussian profile from equation~\eqref{eq:Gaussian}. 
 
-\subsection{Transition rates and widths}
-\subsection{Branching Ratios and Fluorescence Yields}
+\begin{equation}
+    G\equiv G\qty(E,\sigma)=\frac{1}{\sigma\sqrt{2\pi}}\exp(-\frac{E^2}{2\sigma^2}),
+    \label{eq:Gaussian}
+\end{equation}
 
-\section{Spectra simulation}
+The $\sigma$ parameter should account for Doppler shifts caused by thermal distributions, stochastic effects in the experimental setup and the radiation detection system's resolution. This operation results in a specific type of profile also known as Voigt:
 
-\chapter{Spectra Analysis}
+\begin{equation}
+    V\equiv V\qty(E-E_{i,f},\Gamma_{i,f},\sigma,I_{i,f})=\int_{-\infty}^{\infty} L\cdot G\dd{E},
+\end{equation}
 
-\chapter{Development of a \gls{HPC} script for the parallelization of \gls{ASC}}
+Due to the complexity of the convolution operation, there is no simple analytical expression for obtaining values from the Voigt distribution. They can, however, be computed by taking the Real part of the Faddeeva function, $w(z)$:
 
-\section{blablabla}
+\begin{equation}
+    V\qty(z)= \frac{\Re{w\qty(z)}}{\sigma\sqrt{2\pi}},\quad z=\frac{E-E_{i,f} + i\Gamma_{i,f}}{\sigma\sqrt{2}},
+\end{equation}
 
-\section{Speedup}
-\todo{Compare with Amdahl's law or Gustafson's law. }
-\todo{Comparação com o do Jorge}
+In Figure~\ref{fig:Lor_Voigt}, the theoretical $K_\alpha$ spectrum for ionized Copper, using the $N_i=1$ approximation, previously mentioned in section~\ref{sec:trans_int}, is displayed for both when only accounting for emission, and for when considering an experimental resolution of $2\ \si{\electronvolt}$.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.6\linewidth]{Chapters/Figures/Chapter4/K_lorentz_voigt.pdf}
+    \caption{Comparison of a Lorentzian and Voigt profile for Copper's characteristic $K_{\alpha}$ transitions. The red line is the obtained result after convolution the black line with a $\sigma=2\ \si{\electronvolt}$ Gaussian profile.}\label{fig:Lor_Voigt}
+\end{figure}
+
+
+\section{Computing the photoexcitation effect}
+
+
+The final step needed  in order to simulate the theoretical spectra is that of calculating the scaling factor $N_i$ as a function of the energy of the incident beam.
+
+\subsection{The beam profile}
+
+
+The objective for this thesis is that of simulating the effect an x-ray beam coming from a synchrotron line with energies close to that of Copper's K-shell ionization  threshold has on the measured x-ray emission spectrum. The incident synchrotron radiation, through the usage of wigglers and undulators can reach a near monochromatic distribution, with energy spreads on the scale of only a few hundred $\si{\milli\electronvolt}$.
+
+
+From this point forward, a Gaussian profile will be considered for the incident beam. This profile has a tunable energy, in order to survey the whole near-ionization threshold region, and a broadening parameter $\sigma=0.5\ \si{\electronvolt}$.
+
+\subsection{Simulating the resonance}
+
+It is now necessary to calculate the $N_i$ parameter as to account for both the beam profile and the resonance. For an accurate spectra simulation, this value should be that of the photoexcitation cross-section. This, however, is simply not easy to calculate.\todo{meter esta parte melhor} While \gls{MCDFGME} is able to calculate photionization cross-sections, it is not for the photoexcitation case. Experimental data was also not found, but that would go against the \textit{ab-initio} objective of this thesis. A good approach would be to perform R-Matrix calculations \todo{cite here}, but due to their complexity, it was not possible to achieve this at this stage.
+
+In order to solve this problem, assumptions had to be made. First, steady state was assumed, as well that every Cu atom could only be found in ground state before beam-interaction. Second, for every given transition, three states were assumed: the initial ground state, the intermediate excited state, and the final post-relaxation state.
+
+In order to estimate a scaling factor for the population of the intermediate state, it was assumed that, for a given beam energy distribution, the rate of excitation from the ground state to the excited state would be proportional to that of the direct decay from the excited to ground state, since the mediation interaction is the same for both of them, only on an inverse order. Both processes occur with a photon absorbed/emitted  from the system and an electron changing orbital.
+
+Since for the purpose of  state population only the decay from the excited state to the ground state was accounted for, the full width of the transition is only composed by that single partial width, since there is only one decay channel. In order to compute the parameter $N_i$, the overlap of the beam profile and a Lorentzian profile with width equal to that of the transition and with an amplitude equal to the rate was taken:
+
+\begin{equation}
+    N_i =R_{exc} \int_{-\infty}^\infty G\qty(E-E_{beam},0.5\ \si{\electronvolt})\cdot L(E-E_{exc},\Gamma_{exc}) \dd{E},
+\end{equation}
+
+This way it is ensured the resonance peak occurs at the excitation energy and takes into account the beam energetic distribution.
+
+Taking into account every calculated excited state, Figure~\ref{fig:absorption} contains every Lorentzian contribution. This resonant spectrum could be somewhat proportional to the excitation component of Copper's absorption spectrum. 
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{Chapters/Figures/Chapter4/absorption.pdf}
+    \caption{Differential scaling parameter accounting for every excitation contribution.}\label{fig:absorption}
+\end{figure}
+
+
+
+
+
+\section{Photoabsorption cross-section}
+Not accounting for dispersions
