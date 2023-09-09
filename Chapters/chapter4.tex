@@ -86,12 +86,28 @@ Taking into account every calculated excited state, Figure~\ref{fig:absorption} 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{Chapters/Figures/Chapter4/absorption.pdf}
-    \caption{Differential scaling parameter accounting for every excitation contribution.}\label{fig:absorption}
+    \caption{Differential scaling parameter accounting for every excitation contribution. The legend indicates the orbital the electron was excited to.}\label{fig:absorption}
 \end{figure}
 
 
 
 
+\section{Computing the photoionization effect}
+
+It is now necessary to account for the effects that ionized Copper has on the spectrum, all while finding a way to calculate $N_i$ that is also compatible with the photoexcited case.
+
+
+Assuming ground state Copper as a starting point, following the ionization of the K shell, two levels are possible: one where the 1s and the 4s electron's spins counter-align, resulting in a $J$ value of 0 and multiplicity 1, and one where they align, resulting in $J=1$ and a multiplicity of 3. The ionization energy can be calculated for both level possibilities by the energetic difference between the levels, resulting in a theoretical value of $8986.02502\ \si{\electronvolt}$ for the singlet and $8985.93363\ \si{\electronvolt}$. It should be noted that the theoretical values are shifted by more than $5\ \si{\electronvolt}$ from most values present for solid-state Copper in the standard x-ray databases, such as xraylib's of $8978.9\ \si{\electronvolt}$~\cite{SCHOONJANS2011776}, and NIST's $ 8 980.476(20) \ \si{\electronvolt}$~\cite{NIST_database}. It is, however, quite similar to the K-edge values for Vaporized Copper, also present in NIST's database $8 987.89(50)\ \si{\electronvolt}$~\cite{NIST_database}. This shift is due to solid-state interactions between the Copper atoms displaying crystalline patterns \todo{Verificar isto} resulting in a decrease in the binding energy.
+
+
+The photoionization cross-sections were obtained using the \gls{MCDFGME} code,  with the same settings of orthogonality enforcing and no relaxation allowed used for auger transitions for energies from the ionization threshold up to ????\todo{insert later}. Figure ?? displays the obtained results.
+
+\missingfigure{Meter secções eficazes.Mencionar porque esta em OS (ou meter as duas escalas na figura)}
+
+From the zoom-in view on the previous figure, it is apparent that the cross-section are not accurate for near-ionization energies, as can be seen by the slow rise and oscillatory behaviors. This is an artifact of the calculation method and these values do not display the true nature of the photoionization effect. In order to properly estimate them, a 3-exponential fit was performed for both curves, for higher energies ($10\ \si{\kilo\electronvolt}$), and values were extrapolated for the near-ionization threshold, with a sudden drop to 0 for values lower than the theoretical ionization energy.
+
+
+While it was possible to calculate the proper cross-section values, the $N_i$ parameter needed compatibility to the way it was computed in the photoexcited state, so the correlation between the Oscillator Strength and Rate needed was needed.
 
 \section{Photoabsorption cross-section}
-Not accounting for dispersions
+Not accounting for dispersion.
