@@ -106,8 +106,21 @@ The photoionization cross-sections were obtained using the \gls{MCDFGME} code,  
 
 From the zoom-in view on the previous figure, it is apparent that the cross-section are not accurate for near-ionization energies, as can be seen by the slow rise and oscillatory behaviors. This is an artifact of the calculation method and these values do not display the true nature of the photoionization effect. In order to properly estimate them, a 3-exponential fit was performed for both curves, for higher energies ($10\ \si{\kilo\electronvolt}$), and values were extrapolated for the near-ionization threshold, with a sudden drop to 0 for values lower than the theoretical ionization energy.
 
+\todo{meter aqui valores}
 
 While it was possible to calculate the proper cross-section values, the $N_i$ parameter needed compatibility to the way it was computed in the photoexcited state, so the correlation between the Oscillator Strength and Rate needed was needed.
+
+
+For radiative transitions, for the electric components, besides yielding the rate value, \gls{MCDFGME} also outputs the correspondent value for the Oscillator Strength. A proportionality was found between this two parameters, the emitted photon energy, and the ratio between the initial and final state multiplicities.
+
+\todo{meter a equação}
+
+It is now possible to convert the photoionization cross-sections into something that is rate normalized so that the overlap can be calculated with the beam profile and the parameter $N_i$ computed. In a similar but inverse fashion, the photoexcitation cross-sections, in units of $\si{\barn}$, can be calculated and are present in Annex~??.
+
+
+\section{The synthetic spectrum}
+
+
 
 \section{Photoabsorption cross-section}
 Not accounting for dispersion.
