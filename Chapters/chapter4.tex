@@ -89,6 +89,8 @@ Taking into account every calculated excited state, Figure~\ref{fig:absorption} 
     \caption{Differential scaling parameter accounting for every excitation contribution. The legend indicates the orbital the electron was excited to.}\label{fig:absorption}
 \end{figure}
 
+From Figure~\ref{fig:absorption}, there is something quite notorious. While for most excited states, the absorption energies related to K-shell excitation can be found close together, in the case of the excitation to orbital $4p$, two levels converged to an energy value diverging from the others by around $3\ \si{\electronvolt}$. While this could have arisen from a numerical convergence problem, all convergence parameters were confirmed and other more complex methods employed, with no change in the level energy. This energy difference will have a great impact in the simulated spectrum, since this excitation is the one with the highest probability.
+
 
 
 
@@ -100,7 +102,7 @@ It is now necessary to account for the effects that ionized Copper has on the sp
 Assuming ground state Copper as a starting point, following the ionization of the K shell, two levels are possible: one where the 1s and the 4s electron's spins counter-align, resulting in a $J$ value of 0 and multiplicity 1, and one where they align, resulting in $J=1$ and a multiplicity of 3. The ionization energy can be calculated for both level possibilities by the energetic difference between the levels, resulting in a theoretical value of $8986.02502\ \si{\electronvolt}$ for the singlet and $8985.93363\ \si{\electronvolt}$. It should be noted that the theoretical values are shifted by more than $5\ \si{\electronvolt}$ from most values present for solid-state Copper in the standard x-ray databases, such as xraylib's of $8978.9\ \si{\electronvolt}$~\cite{SCHOONJANS2011776}, and NIST's $ 8 980.476(20) \ \si{\electronvolt}$~\cite{NIST_database}. It is, however, quite similar to the K-edge values for Vaporized Copper, also present in NIST's database $8 987.89(50)\ \si{\electronvolt}$~\cite{NIST_database}. This shift is due to solid-state interactions between the Copper atoms displaying crystalline patterns \todo{Verificar isto} resulting in a decrease in the binding energy.
 
 
-The photoionization cross-sections were obtained using the \gls{MCDFGME} code,  with the same settings of orthogonality enforcing and no relaxation allowed used for auger transitions for energies from the ionization threshold up to ????\todo{insert later}. Figure ?? displays the obtained results.
+The photoionization cross-sections were obtained using the \gls{MCDFGME} code,  with the same settings of orthogonality enforcing and no relaxation allowed used for auger transitions for energies from the ionization threshold up to ????\todo{insert later}. Figure ?? displays the obtained results. An independent \gls{MPI} script was developed for faster calculations for a large set of photon energies.
 
 \missingfigure{Meter secções eficazes.Mencionar porque esta em OS (ou meter as duas escalas na figura)}
 
@@ -111,15 +113,23 @@ From the zoom-in view on the previous figure, it is apparent that the cross-sect
 While it was possible to calculate the proper cross-section values, the $N_i$ parameter needed compatibility to the way it was computed in the photoexcited state, so the correlation between the Oscillator Strength and Rate needed was needed.
 
 
-For radiative transitions, for the electric components, besides yielding the rate value, \gls{MCDFGME} also outputs the correspondent value for the Oscillator Strength. A proportionality was found between this two parameters, the emitted photon energy, and the ratio between the initial and final state multiplicities.
+On the case of radiative transitions, for the electric components, besides yielding the rate value, \gls{MCDFGME} also outputs the correspondent value for the Oscillator Strength. A proportionality was found between these two parameters, the emitted photon energy, and the ratio between the initial and final state multiplicities.
 
 \todo{meter a equação}
 
-It is now possible to convert the photoionization cross-sections into something that is rate normalized so that the overlap can be calculated with the beam profile and the parameter $N_i$ computed. In a similar but inverse fashion, the photoexcitation cross-sections, in units of $\si{\barn}$, can be calculated and are present in Annex~??.
+It is now possible to convert the photoionization cross-sections into something that is rate normalized so that the overlap can be calculated with the beam profile and the parameter $N_i$ computed. In a similar but inverse fashion, the photoexcitation cross-sections, can be calculated and are present in Annex~??.
 
 
 \section{The synthetic spectrum}
 
+The energy of the beam profile used for simulation was tuned as to survey the whole pre-excitation region up to post K-shell ionization. From an initial beam energy of $8970\ \si{\electronvolt}$ up to a final of $8995\ \si{\electronvolt}$, in steps of $0.01\ \si{\electronvolt}$, the spectra were simulated taking into account the whole set of contributions. As expected, for the excitations, the diagram transitions for 4p-excited Copper have the greatest impact on the spectrum. This is due to it being the $ns\rightarrow n' p$ excitation to the lowest possible $n'$ value.\todo{Justifica melhor isto} These are followed by other $n'p$-excited states, with the spectral intensity decreasing by an order of magnitude for each consequent $n'$. The spectral 2D plots, containing the x-ray emissions as a function of beam energy for each component can be found in Annex~??, while the full spectrum is present in Figure~??. Due to the previously mentioned energy divergence for some $4p$ excited levels, two distinct resonant areas will appear on the spectrum for this contribution.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.7\linewidth]{Chapters/Figures/Chapter4/all_log.pdf}
+\end{figure}
+
+From these view, it is quite obvious the presence of three high-intensity regions. Both lower energy ones are $4p$-excitation dominated, while the high energy one, where a clear plateau region is observed is due to the photoionization. As expected, this last component would be the dominant one once the threshold has been reached. In the next chapter, the effect other excited states have on the emission energy will be further explored as to be more apparent.
 
 
 \section{Photoabsorption cross-section}

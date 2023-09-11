@@ -273,7 +273,7 @@ Should the first attempt have failed to reach convergence, a similar calculation
 Should the previous two attempts have been made, and no convergence was reached, a new calculation needs to be made. In addition to the change cycle parameters, the parameters for some orbitals are to be altered. This can be done by altering the initial wavefunction to hydrogenics, or to a previously computed one. The method for solving the Dirac equation can also be changed for each chosen orbital. This final attempt can be quite time-consuming due to the many possibilities and combinations of methods to be employed for each orbital.
 
 
-Since for every calculation thousands of levels need to be computed, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used \verb|GNU|'s \verb|parallel|  command  for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \verb|MPI| approach for the purpose of parallelization. This last one will be discussed further in the thesis.
+Since for every calculation thousands of levels need to be computed, a parallelized automation script was used. In total two scripts were used: a first one, previously written in \verb|bash| by one of the advisors, Jorge Machado, which used \verb|GNU|'s \verb|parallel|  command~\cite{Tange2011a} for parallelization, was used for the first calculations performed; and for most of the calculations, a new script, developed in the scope of this thesis, written in \verb|Python| and employing an \gls{MPI} approach for the purpose of parallelization. This last one will be discussed further in the thesis.
 
 In the total number of calculated 1-hole and 2-holes levels is displayed in Table~\ref{tab:tot_levels}.
 
@@ -407,7 +407,7 @@ The total number of calculated transitions can be found in Table \ref{tab:tot_tr
 
 \subsubsection{Rate and Energy Matrices as a calculation quality evaluation tool}
 
-Due to \gls{MCDFGME} applying a numerical method, even after employing the optimize orbital for level calculation, the results obtained may not be accurate. This way a method for helping visualize the quality of a calculation is by plotting the rate matrix for the calculation.
+Due to \gls{MCDFGME} applying a numerical method, even after employing the optimize orbital method for level calculation, the results obtained may not be accurate. This way a method for helping visualize the quality of a calculation is by plotting the rate matrix for the calculation.
 
 The employment of this method was what lead to the decision not to perform the transition calculations for excitations to orbitals 8p and 9p, as well as excluding the results for excitation to 7p from the spectra simulation.
 
