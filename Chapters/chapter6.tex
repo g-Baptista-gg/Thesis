@@ -10,10 +10,35 @@
 
 \chapter{A new High-Performance Computing code for parallelization of atomic structure calculations}
 
+As previously discussed, when dealing with an atomic structure calculation, the branching-out of the levels lead to the necessity to perform thousands of computations both for level and transition calculations. In order to aid in this process, and to perform the necessary calculations in a reasonable time, parallelization scripts are used. The subject of this chapter will be the developed \verb|python| \gls{MPI} implementation. The full \verb|runMCDF_MPI.py| code with proper documentation can be found in \todo{link}.
+
 \section{An overview}
+
+The developing of this script was motivated by a few key points. The main one is due to the fact that scripts employing \gls{MPI} can easily be wrapped by \verb|SLURM| and be used in a supercomputer with a cluster architecture. The second motivation is due to the previously utilized script (written in \verb|bash| by one of the advisors and employing the \verb|parallel| command) not being able to perform calculations for some desired excitations, and, at last, \verb|python| being a much suitable language for adding new features.
+
+The working principle for this script is the deployment of numerous Slave ranks (limited by the number of the CPU hardware threads) which perform the computations in a parallelized way, and communicate with a Master rank which has only the function of managing the slaves' workloads, and compiling the obtained results.
+
+In its current state, the code encompasses many features, such as:
+
+\begin{itemize}
+    \item Level calculation for a given set of 1 and 2-holes configurations.
+    \item Radiative, Auger and Satellite transition rate calculations.
+    \item Spectral intensity calculations
+    \item Interface for level convergence with active output control.
+    \item Spawning of a terminal per rank for debugging purposes.
+\end{itemize}
+
+Annex?? presents a comprehensive guide on the working principle of the calculations. 
+
+
+\section{Speedup comparison}
+
+When dealing with code parallelization, one of the most important features is the evolution of the execution time as a function of the number of working ranks.
+
+Due to the numerical nature of the calculations performed by \verb|mcdfgme2019.exe|, the time taken to perform a computation varies a lot based on the system at study and methods employed.
 
 \section{Advantages and Disadvantages}
 
-\section{Speedup comparison}
+
 
 \section{Future improvements}
