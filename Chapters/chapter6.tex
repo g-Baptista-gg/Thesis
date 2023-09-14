@@ -28,14 +28,53 @@ In its current state, the code encompasses many features, such as:
     \item Spawning of a terminal per rank for debugging purposes.
 \end{itemize}
 
-Annex?? presents a comprehensive guide on the working principle of the calculations. 
+A very brief explanation on the working principle of each calculation follows.
 
 
+
+\subsection{Level calculation}
+
+The level calculation is started first by a quantum-number finding process, and then followed by the actual calculations.
+
+For initially finding the whole set of levels, the user-defined configurations are loaded into the master rank's work queue. These are then distributed to rank slaves who will try to execute an \gls{MCDFGME} calculation for an extremely high J value. An error output will indicate the maximum possible J value, which the slave rank will communicate to the master, who will, in turn, spawn calculations for all possible J values.
+
+For finding all possible eigenvalues, a similar process is followed, where a trial calculation, now with the correct J value, is ran for a high eigenvalue, in order to let the \gls{MCDFGME} find the maximum possible value. Taking this into account, the master rank is able to spawn proper calculations for the whole set of levels.
+
+For each level, the three convergence attempts will be performed. Should all of them fail, the level is sent for manual converged.
+
+\subsection{Transition calculation}
+
+The first step in order to compute all possible transitions is to order the calculated levels by their energy. For each individual level a transition calculation will be performed for all less energetic levels. This involves using the wavefunction-containing \verb|.f09| files for both initial and final levels.
+
+Should the transition involve two 1-hole or two 2-hole levels, a radiative transition is calculated, while for a set of 1-hole and 2-hole levels, an auger transition calculation is performed.
+
+This operation is the one that takes the most computational time, due to high number of transitions.
+
+\subsection{Spectral intensity calculations}
+
+The process for the calculation of these parameters follows the definitions presented in section??. This process is the only non-paralleized calculation performed by the script, as the master slave is able to compute every intensity in a matter of only a few seconds.
+
+In order to aid calculations, the data analysis library \verb|pandas|~\cite{reback2020pandas} was used, leading to a major improvement in computational time when compared to the previously used \verb|bash| script.
+
+\subsection{Level convergence interface}
+
+The manual level convergence process is by itself, quite tiresome. It involves changing directory multiple times, launching and exiting text editors every time an attempt is made, as well as manually checking for the convergence parameters. The time and energy lost in this process can be quite significant for longer calculations.
+
+In order to mitigate this, a state convergence interface was created. When launching this interface, the user is able to select the desired energy difference and overlap values for convergence benchmarking, and, by itself, the interface will cycle through all calculated levels, stopping when the stipulated conditions are not met.
+
+In this case, the quantum numbers are displayed, as well as the level energy, energy difference, and maximum overlap values on the left side of the screen, while on the right the \verb|.f06| output is displayed. With a simple press of a button, the user can either open the input \verb|.f05| file on a \verb|nano| text editor, run a \gls{MCDFGME} calculation, or skip to the next failed level, should the previous one be up to standards.
+
+The use of this interface greatly  accelerated part of the work performed on this thesis.
+\missingfigure{meter print da interface.}
 \section{Speedup comparison}
 
 When dealing with code parallelization, one of the most important features is the evolution of the execution time as a function of the number of working ranks.
 
-Due to the numerical nature of the calculations performed by \verb|mcdfgme2019.exe|, the time taken to perform a computation varies a lot based on the system at study and methods employed.
+Due to the numerical nature of the calculations performed by \verb|mcdfgme2019.exe|, the time taken to perform a computation varies a lot based on the system at study and methods employed. This way, a more demanding calculation, even when only being executed by a single rank, can impact the whole performance of the system, affecting other ranks.
+
+In order to evaluate and compare the parallelization capability of the developed script, the same computation was performed using the current and the previous script, for a variable number of working ranks.
+
+\missingfigure{Comparar scripts e Amhdal}
 
 \section{Advantages and Disadvantages}
 
