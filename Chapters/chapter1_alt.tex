@@ -17,13 +17,18 @@ Throughout this thesis, different topics regarding Quantum Mechanics, Atomic Phy
 
 \section{Characteristic X-rays}
 
-When subjected to a high energy beam of particles (usually photons or electrons), an element may go through the process of the ionization of inner-core electrons, which is followed by the emission of radiation of its own, in the form of X-rays and/or Auger electrons. The radiation emitted throughout this process presents well-defined energy values and thus provides a way to ascertain if an element is present in a sample under study. Due to this reason, these characteristic emissions are of an extremely high importance in a wide range of scientific areas.
-
-
 
 When an atomic system is in a bound state, the electrons orbiting the nucleus are occupying fixed quantum states, defined by their principal atomic number, $n$, angular momentum, $l$, and spin, $s$. Electrons are also fermions, and thus must respect Pauli's exclusion principle, each occupying a single state, only occupied by that single electron.
  These quantum numbers provide information about each electron's wavefunction, and the collection of all the electrons' wavefunctions can be used in order to describe the whole system. When operating the Hamiltonian on this collection of wavefunctions, the atomic system's state's energy is obtained.
 Besides all the occupied states, an infinite more number of possible eigenfunctions will compose that system's base.
+
+
+These bound systems, however tend to strive toward reaching an energetic minimum, associated with more stable states. Should the system be encountered in a state where energy is not minimize, it will eventually decay to a less energetic one.
+
+When subjected to a high energy beam of particles (usually photons or electrons), an atomic bound system may go through the process of the ionization of inner-core electrons, which is followed by the emission of radiation of its own, in the form of X-rays and/or Auger electrons. The radiation emitted throughout this process presents well-defined energy values and thus provides a way to ascertain if an element is present in a sample under study. Due to this reason, these characteristic emissions are of an extremely high importance in a wide range of scientific areas.
+
+
+
 
 \subsection{Ionization as a vacancy generator}
 
@@ -210,7 +215,7 @@ The characteristic radiation from transitions that originated from these states 
     \caption{Resonant Photoexcitation}\label{fig:exc}
 \end{figure}
 
-\section{Radiative transitions}
+\subsection{Radiative transitions}
 
 
 
@@ -226,7 +231,7 @@ It should also be of note that, usually, for the same multiplicity, an $E$ trans
 The intensity of a transition is proportional to the squared norm of the perturbation's matrix element involving the initial and final state $\qty(\Gamma_{if}\propto \qty|\mel**{\psi_i}{H'}{\psi_f}|^2)$. It should also be noted that the electron's initial state population will serve as a scaling factor for the transitions' rate.
 For example, while the transition rate for a $2p_{1/2}\rightarrow1s$ and $2p_{3/2}\rightarrow1s$ should be about the same, the orbital $2p_{3/2}$ has double the population $2p_{1/2}$ has, hence why the $K_{\alpha_2}$ line has about half the $K_{\alpha_1}$ line's intensity.
 
-One should also mention that monochromatic transitions do not exist. While the transition might have a well-defined energy, calculated by the difference in energy between the initial and final levels, due to Heisenberg's uncertainty principle, $\Delta E \Delta t > \frac{\hbar}{2}$, there will exist a natural energy broadening, the transition's natural width. The shapes representing these transitions are given by a Lorentzian distribution.
+One should also mention that monochromatic transitions do not exist. While the transition might have a well-defined energy, calculated by the difference in energy between the initial and final levels, due to Heisenberg's uncertainty principle, $\Delta E \Delta t > \frac{\hbar}{2}$, there will exist a natural energy broadening proportional to the decay rate, $\Gamma=\hbar R$, the transition's natural width. The shapes representing these transitions are given by a Lorentzian distribution.
 
 
 
@@ -258,30 +263,30 @@ Essentially, and in atomic units:
 
 This numerical method is one of the staple and most enduring procedures for solving the problem associated with a many-body system. As a side note, an in-depth explanation on all the intricacies of this method can be found in many of the literature, but as for the writing of this thesis, the works~\cite{HFweb,JPS,Ramon,Blinder2018} were the ones consulted.
 
-Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field's \gls{selfconsistency}. In this approach, when studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one related to the electron's spin, $\chi$, as to be able to account for Pauli's exclusion principle and, if so desired, relativistic effects.
+Hartree developed an iterative method, further enhanced by Fock and Slater, based on the field's \gls{selfconsistency}. In this approach, when studying a multi-electronic system, such as an atom, each electron's wavefuction is composed as a product of a spacial part, $\psi$, and one related to the electron's spin, $\chi$,  which can be used for the calculation of relativistic effects.
 
 \begin{equation}
     u=\psi\chi,
 \end{equation}
 
-The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle\todo{Explain antisymmetry and put it in the glossary}, due to the electron's fermionic nature. In order to achieve this, $\Psi$ is to be composed of a Slater determinant:\todo{Explain in the glossary}
+The wavefuction capable of describing the whole system, $\Psi$, should be somewhat of a product of all the wavefunctions describing each individual electron. However, one must not forget the need for this wavefunction to respect the antisymmetry principle\todo{Explain antisymmetry and put it in the glossary}, due to the electron's fermionic nature. In order to achieve this, $\Psi$ is to be composed of a Slater determinant, as to also be able to account for Pauli's exclusion principle:\todo{Explain in the glossary}
 
 \begin{equation}
     \Psi=\frac{1}{\sqrt{N!}}\mqty| u_1(x_1) & u_2(x_1) & \cdots & u_N(x_1)\\
     u_1(x_2) & u_2(x_2) & \cdots & u_N(x_2)\\
     \vdots & \vdots& \ddots&\vdots\\
-    u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|,
+    u_1(x_N)&u_2(x_N)&\cdots&u_N(x_N)&|.
 \end{equation}
 
 It is of high importance that the set of basis wavefunctions respects orthonormality. These are to be initialized as trial wavefunctions for the numerical method. 
 
 
-The main goal for this algorithm is to, as per the \gls{selfconsistency}, follow the variational principle with the goal of minimize a functional, as a way of reaching an energetic minimum. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of the trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to reach a solution that yields an energetic value as close as possible to $E_0$, while always yielding $\ev**{H}{\Psi}\geq E_0$, due to the numerical nature of the method.
+The main goal for this algorithm is to, as per the \gls{selfconsistency}, follow the variational principle with the goal of minimizing a functional, as a way of reaching an energetic minimum. This optimal, yet unknown energy, $E_0$ (calculated by operating the Hamiltonian on the system's optimal wavefunctions), will attempt to be reached by the variation  of the trial wavefunctions that provide a non-minimized solution. Whilst the optimal wavefunctions will never be reached, the purpose of this method is to reach a solution that yields an energetic value as close as possible to $E_0$, while always yielding $\ev**{H}{\Psi}\geq E_0$, due to the numerical nature of the method.
 
 The computational method consists on starting with the previously mentioned trial wavefunctions and employing them in the Hartree-Fock's potential calculation through the \gls{HF} equations.\todo{Finish the explanation}
 
 
-In an over-simplistic scheme, the self-consistent Hartree-Fock computational method can be represented by the block diagram in Figure~\ref{fig:diagram}.
+In a simplified scheme, the self-consistent Hartree-Fock computational method can be represented by the block diagram in Figure~\ref{fig:diagram}.
 
 
 \begin{figure}[h!]
@@ -290,7 +295,7 @@ In an over-simplistic scheme, the self-consistent Hartree-Fock computational met
         \node (initWF) [startstop] {Define Initial \\ Test Wavefunctions};
         \node (loadWF) [io, below of=initWF, yshift=-0cm] {Initial \\ Wavefunctions};
         \node (EnCalc1) [process,right of = loadWF,xshift= 2cm]{Compute \\ Energy ($E_i$)};
-        \node (calcPotential) [process,below of= loadWF]{Compute density matrix \\ and HF potential};
+        \node (calcPotential) [process,below of= loadWF]{Compute HF potential};
         \node (calcWF) [process, below of = calcPotential]{Solve HF equations \\ for new potential};
         \node (newWF) [io, below of=calcWF] {New \\ Wavefunctions};
         \node (EnCalc2) [process,right of = newWF,xshift= 2cm]{Compute \\ Energy ($E_f$)};
@@ -420,7 +425,7 @@ For a central fixed potential, as is the one generated by the nuclear charge, th
     \label{eq:diracHam}
 \end{equation}
 
-A very interesting fact about Dirac's equation is that it yields, in fact, two sets of solutions: the large component (positive energy values), for particles, and the small component (negative energy values), for antiparticles.
+A very interesting fact about Dirac's equation is that it yields, in fact, two-component solutions: the large component (positive energy values), for particles, and the small component (negative energy values), for antiparticles.
 
 \subsubsection{The Dirac-Breit Equation}
 
@@ -490,14 +495,14 @@ This set of terms will account for the fact that Coulomb interactions, mediated 
         \draw (9,0.3) -- (10.5,0.3);
         \node at (7/2+8.5/2+2,0.3)[anchor=south] {$1S_{1/2}$};
         \draw (9,3.2) -- (10.5,3.2);
-        \node at (9/2+10.5/2,3.2)[anchor=north] {$2P_{1/2}$};
+        \node at (9/2+10.5/2,3.2)[anchor=north] {$2S_{1/2}$};
         \draw (9,3.3) -- (10.5,3.3);
         \draw[dashed] (6.5,3.2) --(9,3.3);
         \draw[dashed] (6.5,3.2) --(9,3.2);
         \node at (9/2+10.5/2,3.8)[anchor=south] {$2P_{3/2}$};
         \draw (9,3.8) -- (10.5,3.8);
         \draw[dashed] (6.5,3.8) --(9,3.8);
-        \draw (10.0,3.3) -- (10.75,3.7)node[anchor=west] {$2P_{3/2}$};
+        \draw (10.0,3.3) -- (10.75,3.7)node[anchor=west] {$2P_{1/2}$};
 
         \draw (9,5.65) -- (10.5,5.65);
         \draw[dashed] (5.5,5.65) -- (9,5.65);
@@ -542,8 +547,8 @@ A brief description of these contributions can be found in  appendix \ref{ap:QED
 
 
 
-\section{State of the Art}\todo{This really needs a re-do}
-
+\section{State-of-the-Art}\todo{This really needs a re-do}
+In this section, an overview of the most up-to-date research regarding the previous topics applied to the main subject of interest of this thesis, Copper $K_\alpha$ x-ray transitions and atomic structure calculations will be discussed. 
 
 \subsection{Copper's characteristic X-rays}
 Copper is a dominant element in today's society. While most of its uses are day-to-day related, it also has a high prevalence in many physical areas, namely, copper's $K_\alpha$ transitions~\cite{Nguyen2022}. While these radiative transitions have been measured countless times, with very well recorded energy values~\cite{Melia2020,Melia2019,Sorum1987,Bremer1982,Deutsch1995}.
