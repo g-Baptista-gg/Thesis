@@ -64,7 +64,7 @@ In order to mitigate this, a state convergence interface was created. When launc
 
 In this case, the quantum numbers are displayed, as well as the level energy, energy difference, and maximum overlap values on the left side of the screen, while on the right the \verb|.f06| output is displayed. With a simple press of a button, the user can either open the input \verb|.f05| file on a \verb|nano| text editor, run a \gls{MCDFGME} calculation, or skip to the next failed level, should the previous one be up to standards.
 
-The use of this interface greatly  accelerated part of the work performed on this thesis.
+The use of this interface has greatly  accelerated part of the work performed on this thesis.
 \missingfigure{meter print da interface.}
 \section{Speedup comparison}
 
@@ -78,6 +78,14 @@ In order to evaluate and compare the parallelization capability of the developed
 
 \section{Advantages and Disadvantages}
 
+In its current state, the script presents many features that further facilitate the processing of atomic structure calculations. As previously discussed, it is able to automatically deploy and perform calculations for high-complexity atomic systems, as well as implementing parallelization techniques for performing computations in a sustainable time. In addition, it also possesses some quality of life features such as tools for aiding the manual convergence process, with many more to come due to the ease of implementation that is characteristic of a high-level language such as \verb|python|.
+
+The script, however, still possesses some drawbacks.
+For now, the \gls{MPI} communication between ranks is attained through non-blocking communication, leading to a rank being continuously listening for possible messages while idle. This leads to the loss of some performance, and should be fixed on the next version of the script.
+
+One other negative attribute of this implementation occurs on an extreme use of the parallelization capabilities, where every hardware thread is used. This can lead to high \verb|CPU| temperatures which, in the case of a device that does not have a powerful cooling system (such as a laptop due to being compact) can lead to a system shutdown.
 
 
 \section{Future improvements}
+
+Some improvements to the script are already on the way, such as implementing an automatic configuration generator (a feature the previous script has) and the calculation of 3-holes levels for the calculation of auger transitions in satellite states and proper calculation of the widths of satellite radiative transitions.

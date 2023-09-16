@@ -60,9 +60,9 @@ The values of the fluorescence yields for every calculated excited state can be 
         4d &3.483e-01 &9.827e-04&\multicolumn{2}{c|}{8.647e-03}&1.459e-05&\multicolumn{2}{c|}{4.479e-05}&\multicolumn{2}{c}{4.805e-09}\\
         4f &4.469e-01&9.110e-04&\multicolumn{2}{c|}{9.055e-03}&1.822e-05&\multicolumn{2}{c|}{5.073e-05}&\multicolumn{2}{c}{3.537e-07} \\
         5s & \\
-        5p &4.297e-01&7.591e-04&\multicolumn{2}{c|}{1.829e-03}&1.337e-05&\multicolumn{2}{c|}{3.877e-05} \\
-        5d & \\
-        5f & \\
+        5p &4.297e-01&7.591e-04&\multicolumn{2}{c|}{1.829e-03}&1.337e-05&\multicolumn{2}{c|}{3.877e-05}&\multicolumn{2}{c}{1} \\
+        5d &4.176e-01&8.224e-04&\multicolumn{2}{c|}{3.605e-03}&1.964e-05&\multicolumn{2}{c|}{3.446e-05}&\multicolumn{2}{c}{1.270e-11} \\
+        5f &3.790e-01&6.447e-04&\multicolumn{2}{c|}{7.564e-03}&1.190e-05&\multicolumn{2}{c|}{3.637e-05}&\multicolumn{2}{c}{3.023e-07} \\
         5g & \\
         6s & \\
         6p & \\
@@ -112,3 +112,4 @@ The level intensity can now be computed as proportional to the product of the st
 
  In equations~\eqref{eq:int_1} and~\eqref{eq:int_2}, $N_i$ works as a scaling parameter to account for the density of atomic systems that are found in the state $i$. In the case of an ionized system, when comparing emissions generated due to a hole in the same subshell, the probability of generating that hole is approximated as being the same for all relevant levels, and this value is typically attributed a value of 1. A spectrum simulated using this consideration can be further found in Figure~\ref{fig:Lor_Voigt}. This approximation, however is not valid when dealing with resonant photoexcitations, as will be discussed in the next section.
  
+ As a side note, the calculated transitions for $4s$-excited Copper could as well be used in the simulation of, for example, the x-ray transitions occurring after a $^{65}_{30}$Zn isotope decays to $^{65}_{29}$Cu through the means of electronic capture. In this case, the $N_i$ parameter should be each subshell's capture probability.
